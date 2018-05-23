@@ -219,6 +219,7 @@ public abstract class TiPresenter<V extends TiView> {
          TiLog.w(TAG, "not calling onCreate(), it was already called");
          return;
       }
+      //INITIALIZED之后的状态一定得是VIEW_DETACHED
       moveToState(State.VIEW_DETACHED, false);
       mCalled = false;
       TiLog.v(TAG, "onCreate()");
@@ -237,7 +238,7 @@ public abstract class TiPresenter<V extends TiView> {
     *
     * @see #onDestroy()
     */
-   public final void destroy() {
+   public final void destroy() {//只有在状态为DETACHED时才能成功调用destroy()(真正起作用)
       if (isViewAttached()) {
          throw new IllegalStateException(
                "view is attached, can't destroy the presenter. First call detachView()");
@@ -268,7 +269,7 @@ public abstract class TiPresenter<V extends TiView> {
     * Calling detachView in {@code Fragment#onDestroyView()} makes sense because observing a
     * discarded view does not.
     *
-    * @see #onSleep()
+    * @see #onDetachView()
     */
    public final void detachView() {
       if (!isViewAttached()) {
@@ -276,13 +277,6 @@ public abstract class TiPresenter<V extends TiView> {
          return;
       }
       moveToState(State.VIEW_DETACHED, false);
-      mCalled = false;
-      TiLog.v(TAG, "deprecated onSleep()");
-      onSleep();
-      if (!mCalled) {
-         throw new SuperNotCalledException("Presenter " + this
-               + " did not call through to super.onSleep()");
-      }
       mCalled = false;
       TiLog.v(TAG, "onDetachView()");
       onDetachView();
@@ -313,7 +307,7 @@ public abstract class TiPresenter<V extends TiView> {
 
    /**
     * Gets the currently attached view. The view is attached between the lifecycle callbacks
-    * {@link #onAttachView(TiView)} and {@link #onSleep()}.
+    * {@link #onAttachView(TiView)} and {@link #onDetachView()}.
     * <p>
     * If you don't care about the view being attached or detached you should either rethink your
     * architecture or use {@link #sendToView(ViewAction)} where the action will be executed when
@@ -349,7 +343,7 @@ public abstract class TiPresenter<V extends TiView> {
       return mState == State.DESTROYED;
    }
 
-   public boolean isInitialized() {
+   public boolean isInitialized() {// 默认状态就是INITIALIZED,INITIALIZED之后的状态一定是VIEW_DETACHED
       return mState == State.VIEW_DETACHED;
    }
 
@@ -525,17 +519,6 @@ public abstract class TiPresenter<V extends TiView> {
    }
 
    /**
-    * @deprecated use {@link #onDetachView()} instead
-    */
-   @Deprecated
-   protected void onSleep() {
-      if (mCalled) {
-         throw new IllegalAccessError("don't call #onSleep() directly, call #detachView()");
-      }
-      mCalled = true;
-   }
-
-   /**
     * Executes the {@link ViewAction} when the view is available on the UI thread.
     * Once a view is attached the actions get called in the same order they have been added.
     * When the view is already attached the action will be executed immediately.
@@ -588,7 +571,7 @@ public abstract class TiPresenter<V extends TiView> {
             throw new IllegalStateException("first call moveToState(<state>, false);");
          }
       }
-
+//状态演变：INITIALIZED -> VIEW_DETACHED -> {VIEW_ATTACHED -> VIEW_DETACHED}/DESTROYED
       if (newState != oldState) {
          switch (oldState) {//因为presenter的状态是生命周期相关的，所以需要根据旧状态来确定新状态
             case INITIALIZED:
@@ -597,7 +580,7 @@ public abstract class TiPresenter<V extends TiView> {
                   break;
                } else {
                   throw new IllegalStateException("Can't move to state " + newState
-                        + ", the next state after INITIALIZED has to be VIEW_DETACHED");
+                        + ", the next state after INITIALIZED has to be VIEW_DETACHED");//为什么？？
                }
             case VIEW_DETACHED:
                if (newState == State.VIEW_ATTACHED) {
