@@ -1,6 +1,11 @@
 package yincheng.gggithub.mvp.contract;
 
-import yincheng.gggithub.mvp.presenter.BaseContract;
+import android.content.Intent;
+import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
+import yincheng.gggithub.mvp.model.AccessTokenModel;
 
 /**
  * Mail   : luoyincheng@gmail.com
@@ -8,13 +13,25 @@ import yincheng.gggithub.mvp.presenter.BaseContract;
  * Github : yincheng.luo
  */
 public interface LoginContract {
-   interface View extends BaseContract.BaseView {
+   interface View extends GGContract.GGView {
+      void onEmptyUserName(boolean isEmpty);
+
+      void onEmptyPassword(boolean isEmpty);
+
+      void onLoggedInSuccessfully();
 
    }
 
-   interface Presenter extends BaseContract.BasePresenter<View> {
-      void login(String username, String password);
+   interface Presenter extends GGContract.GGPresenter {
+      @NonNull Uri getAuthorizationUrl();
 
-      void signOut();
+      void onHandleAuthIntent(@Nullable Intent intent);
+
+      void onTokenResponse(@Nullable AccessTokenModel response);
+
+//      void onUserResponse(@Nullable )
+
+      void login(@NonNull String username, @NonNull String password, @NonNull String
+            twoFactorCode, boolean isBasicAuth, @NonNull String endPoint);
    }
 }
