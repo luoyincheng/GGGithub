@@ -14,8 +14,8 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:layout_height="?android:actionBarSize"
+            android:background="?android:colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
@@ -27,7 +27,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
+        android:layout_marginBottom="50dp"
+        android:layout_marginEnd="18dp"
         app:srcCompat="@android:drawable/ic_dialog_email" />
+
+    <yincheng.gggithub.library.bottomnavigation.BottomNavigationBar
+    android:id="@+id/bottom_navbar_main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom" />
+
+    <!--<yincheng.gggithub.library.materialbottomnavigation.BottomNavigation-->
+        <!--android:id="@+id/bottom_nav_main"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="bottom"-->
+        <!--app:bbn_entries="@menu/bottom_nav_menu"-->
+        <!--app:layout_behavior="@string/bbn_phone_view_behavior" />-->
+
 
 </android.support.design.widget.CoordinatorLayout>

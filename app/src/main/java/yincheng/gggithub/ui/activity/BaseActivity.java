@@ -25,7 +25,10 @@ public abstract class BaseActivity<V extends GGContract.GGView, P extends BasePr
          setContentView(getLayoutId());
          unbinder = ButterKnife.bind(this);
       }
+      initView();
    }
+
+   protected abstract void initView();
 
    @Override protected void onDestroy() {
       super.onDestroy();
