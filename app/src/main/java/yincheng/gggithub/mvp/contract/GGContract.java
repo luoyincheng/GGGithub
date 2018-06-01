@@ -15,9 +15,9 @@ import yincheng.gggithub.mvparchitecture.callonmainthread.CallOnMainThread;
  * Created by yincheng on 2018/5/24/10:23.
  * github:luoyincheng
  */
-public class GGContract {
+public interface GGContract {
 
-   public interface GGView extends TiView {
+   interface GGView extends TiView {
       @CallOnMainThread void showProgressView(@StringRes int resId);
 
       @CallOnMainThread void hideProgressView();
@@ -28,7 +28,7 @@ public class GGContract {
 
    }
 
-   public interface GGPresenter {
+   interface GGPresenter {
       void onSaveInstanceState(Bundle outBundle);
 
       void onRestoreInstanceState(Bundle outBundle);

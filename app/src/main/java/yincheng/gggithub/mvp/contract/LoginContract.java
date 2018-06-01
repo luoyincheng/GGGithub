@@ -19,7 +19,6 @@ public interface LoginContract {
       void onEmptyPassword(boolean isEmpty);
 
       void onLoggedInSuccessfully();
-
    }
 
    interface Presenter extends GGContract.GGPresenter {

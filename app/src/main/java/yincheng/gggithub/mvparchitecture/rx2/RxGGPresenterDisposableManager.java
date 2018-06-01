@@ -123,5 +123,4 @@ public class RxGGPresenterDisposableManager {
          addViewDisposable(disposables[i]);
       }
    }
-
 }
