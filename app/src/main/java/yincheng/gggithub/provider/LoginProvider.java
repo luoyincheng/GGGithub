@@ -1,4 +1,4 @@
-package yincheng.gggithub.network.serviceprovider;
+package yincheng.gggithub.provider;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,7 +18,7 @@ import yincheng.gggithub.helper.InputHelper;
 import yincheng.gggithub.helper.LinkParserHelper;
 import yincheng.gggithub.network.converters.GithubResponseConverter;
 import yincheng.gggithub.network.interceptors.AuthenticationInterceptor;
-import yincheng.gggithub.network.service.LoginService;
+import yincheng.gggithub.provider.service.LoginService;
 
 /**
  * Created by yincheng on 2018/5/25/15:49.

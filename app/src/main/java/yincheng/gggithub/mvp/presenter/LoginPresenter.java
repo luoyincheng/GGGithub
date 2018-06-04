@@ -1,22 +1,17 @@
 package yincheng.gggithub.mvp.presenter;
 
 import android.content.Intent;
-import android.net.Credentials;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.NavUtils;
 import android.util.Log;
 
-import java.lang.reflect.AnnotatedElement;
 import java.util.Arrays;
 
-import yincheng.gggithub.R;
 import yincheng.gggithub.helper.InputHelper;
 import yincheng.gggithub.mvp.contract.LoginContract;
 import yincheng.gggithub.mvp.model.AccessTokenModel;
 import yincheng.gggithub.mvp.model.AuthModel;
-import yincheng.gggithub.network.serviceprovider.LoginProvider;
 
 /**
  * Mail   : luoyincheng@gmail.com
@@ -54,11 +49,11 @@ public class LoginPresenter extends BasePresenter<LoginContract.View>
             authModel.setClientSecret("b2d158f949d3615078eaf570ff99eba81cfa1ff9");
             authModel.setClientId("473e333123519beadd63");
             authModel.setNoteUrl("fasthub://login");
-            makeRestCall(LoginProvider.getLoginRestService(autoToken, null, null).login(authModel),
-                  accessTokenModel -> {
-                     Log.e("wodeshijie", "333");
-                     onTokenResponse(accessTokenModel);
-                  });
+//            makeRestCall(LoginProvider.getLoginRestService(autoToken, null, null).login(authModel),
+//                  accessTokenModel -> {
+//                     Log.e("wodeshijie", "333");
+//                     onTokenResponse(accessTokenModel);
+//                  });
 
          }
       }

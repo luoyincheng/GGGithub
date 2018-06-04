@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import yincheng.gggithub.mvp.contract.base.GGContract;
 import yincheng.gggithub.mvp.model.AccessTokenModel;
 
 /**

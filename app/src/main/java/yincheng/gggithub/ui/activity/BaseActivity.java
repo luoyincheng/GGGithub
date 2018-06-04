@@ -5,7 +5,7 @@ import android.support.annotation.LayoutRes;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import yincheng.gggithub.mvp.contract.GGContract;
+import yincheng.gggithub.mvp.contract.base.GGContract;
 import yincheng.gggithub.mvp.presenter.BasePresenter;
 import yincheng.gggithub.mvparchitecture.TiActivity;
 import yincheng.gggithub.ui.dialogfragment.DialogFragmentLogin;

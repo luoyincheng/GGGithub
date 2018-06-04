@@ -4,13 +4,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import java.util.function.Consumer;
-
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
-import rx.Single;
 import yincheng.gggithub.helper.RxHelper;
-import yincheng.gggithub.mvp.contract.GGContract;
+import yincheng.gggithub.mvp.contract.base.GGContract;
 import yincheng.gggithub.mvparchitecture.TiPresenter;
 import yincheng.gggithub.mvparchitecture.rx2.RxGGPresenterDisposableManager;
 

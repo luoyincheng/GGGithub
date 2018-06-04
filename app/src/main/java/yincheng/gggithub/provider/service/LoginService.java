@@ -1,13 +1,9 @@
-package yincheng.gggithub.network.service;
+package yincheng.gggithub.provider.service;
 
 import android.support.annotation.NonNull;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import yincheng.gggithub.mvp.model.AccessTokenModel;
 import yincheng.gggithub.mvp.model.AuthModel;

@@ -1,4 +1,4 @@
-package yincheng.gggithub.mvp.contract;
+package yincheng.gggithub.mvp.contract.base;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -48,5 +48,21 @@ public interface GGContract {
 
       void onError(@NonNull Throwable throwable);
 
+   }
+
+   interface paginationListener<P> {
+      int getCurrentPage();
+
+      int getPreviousTotal();
+
+      void setCurrentPage(int currentPage);
+
+      void setPreviousTotal(int previousTotal);
+
+      boolean onCallApi(int page, @Nullable P parameter);
+   }
+
+   interface onScrollTopListener {
+      void onScrollToTop(int index);
    }
 }

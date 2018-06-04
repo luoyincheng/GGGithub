@@ -11,7 +11,6 @@ public class AtomicRunnable implements Runnable {
 
    private static AtomicBoolean exists = new AtomicBoolean(false);
 
-
    private String name;
 
    public AtomicRunnable(String name) {

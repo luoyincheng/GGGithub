@@ -15,7 +15,7 @@ import android.view.accessibility.AccessibilityEventSource;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import yincheng.gggithub.mvp.contract.GGContract;
+import yincheng.gggithub.mvp.contract.base.GGContract;
 import yincheng.gggithub.mvp.presenter.BasePresenter;
 import yincheng.gggithub.mvparchitecture.TiDialogFragment;
 

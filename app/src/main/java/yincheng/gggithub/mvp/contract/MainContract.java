@@ -1,5 +1,7 @@
 package yincheng.gggithub.mvp.contract;
 
+import yincheng.gggithub.mvp.contract.base.GGContract;
+
 /**
  * Created by yincheng on 2018/5/25/14:09.
  * github:luoyincheng
