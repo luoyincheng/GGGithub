@@ -1,4 +1,4 @@
-package yincheng.gggithub.network.interceptors
+package yincheng.gggithub.provider.network
 
 import okhttp3.Interceptor
 import okhttp3.Response

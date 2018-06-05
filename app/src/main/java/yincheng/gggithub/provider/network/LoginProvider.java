@@ -1,4 +1,4 @@
-package yincheng.gggithub.provider;
+package yincheng.gggithub.provider.network;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,8 +16,8 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import yincheng.gggithub.BuildConfig;
 import yincheng.gggithub.helper.InputHelper;
 import yincheng.gggithub.helper.LinkParserHelper;
-import yincheng.gggithub.network.converters.GithubResponseConverter;
-import yincheng.gggithub.network.interceptors.AuthenticationInterceptor;
+import yincheng.gggithub.provider.network.GithubResponseConverter;
+import yincheng.gggithub.provider.network.AuthenticationInterceptor;
 import yincheng.gggithub.provider.service.LoginService;
 
 /**

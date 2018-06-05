@@ -32,4 +32,6 @@
     <string name="stared">stared</string>
     <string name="trending">Trending</string>
     <string name="profile">Profile</string>
+    <string name="error">Error</string>
+    <string name="search_result_warning">Too many responses \\nShowing the max API allows</string>
 </resources>

@@ -3,6 +3,8 @@ package yincheng.gggithub.ui.activity;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 
+import com.orhanobut.logger.Logger;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import yincheng.gggithub.mvp.contract.base.GGContract;
@@ -26,6 +28,11 @@ public abstract class BaseActivity<V extends GGContract.GGView, P extends BasePr
          unbinder = ButterKnife.bind(this);
       }
       initView();
+   }
+
+   @Override protected void onSaveInstanceState(Bundle outState) {
+      super.onSaveInstanceState(outState);
+      getPresenter().onSaveInstanceState(outState);
    }
 
    protected abstract void initView();

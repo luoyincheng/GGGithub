@@ -1,4 +1,4 @@
-package yincheng.gggithub.network.converters;
+package yincheng.gggithub.provider.network;
 
 import android.support.annotation.NonNull;
 
@@ -18,7 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by yincheng on 2018/5/25/16:18.
  * github:luoyincheng
  */
-public class GithubResponseConverter extends Converter.Factory {
+public class GithubResponseConverter extends Converter.Factory {// TODO: 2018/6/5
    private Gson gson;
 
    public GithubResponseConverter(Gson gson) {
