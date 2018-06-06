@@ -20,7 +20,10 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_main" />
+    <FrameLayout
+        android:id="@+id/container_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -32,18 +35,18 @@
         app:srcCompat="@android:drawable/ic_dialog_email" />
 
     <yincheng.gggithub.library.bottomnavigation.BottomNavigationBar
-    android:id="@+id/bottom_navbar_main"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="bottom" />
+        android:id="@+id/bottom_navbar_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom" />
 
     <!--<yincheng.gggithub.library.materialbottomnavigation.BottomNavigation-->
-        <!--android:id="@+id/bottom_nav_main"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="bottom"-->
-        <!--app:bbn_entries="@menu/bottom_nav_menu"-->
-        <!--app:layout_behavior="@string/bbn_phone_view_behavior" />-->
+    <!--android:id="@+id/bottom_nav_main"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="bottom"-->
+    <!--app:bbn_entries="@menu/bottom_nav_menu"-->
+    <!--app:layout_behavior="@string/bbn_phone_view_behavior" />-->
 
 
 </android.support.design.widget.CoordinatorLayout>

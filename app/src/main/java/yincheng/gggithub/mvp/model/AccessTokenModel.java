@@ -11,7 +11,9 @@ import lombok.Setter;
  * Created by yincheng on 2018/5/25/11:47.
  * github:luoyincheng
  */
-@Getter @Setter @NoArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
 public class AccessTokenModel implements Parcelable {
    // TODO: 2018/5/25 getter setter NoArgsConstructor 测试
 
@@ -42,7 +44,9 @@ public class AccessTokenModel implements Parcelable {
       dest.writeString(this.tokenType);
    }
 
-   @Override public int describeContents() { return 0; }
+   @Override public int describeContents() {
+      return 0;
+   }
 
    public static final Creator<AccessTokenModel> CREATOR = new Creator<AccessTokenModel>() {
       @Override
@@ -55,4 +59,14 @@ public class AccessTokenModel implements Parcelable {
          return new AccessTokenModel[size];
       }
    };
+
+   @Override public String toString() {
+      return "AccessTokenModel{" +
+            "id=" + id +
+            ", token='" + token + '\'' +
+            ", hashedToken='" + hashedToken + '\'' +
+            ", accessToken='" + accessToken + '\'' +
+            ", tokenType='" + tokenType + '\'' +
+            '}';
+   }
 }
