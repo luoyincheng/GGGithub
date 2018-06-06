@@ -89,8 +89,6 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
       switch (view.getId()) {
          case R.id.fab:
 //            showLoginDialog();
-            showResultDialogFragment();
-            checkDialogFragmentStatus();
             break;
       }
    }
