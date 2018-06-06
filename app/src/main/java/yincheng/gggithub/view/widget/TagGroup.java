@@ -17,6 +17,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.ArrowKeyMovementMethod;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -255,6 +256,7 @@ public class TagGroup extends ViewGroup {
 
    @Override
    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+      Log.i("ViewGroupLifeCycle", "onMeasure()");
       final int widthMode = MeasureSpec.getMode(widthMeasureSpec);
       final int heightMode = MeasureSpec.getMode(heightMeasureSpec);
       final int widthSize = MeasureSpec.getSize(widthMeasureSpec);
@@ -308,6 +310,7 @@ public class TagGroup extends ViewGroup {
 
    @Override
    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+      Log.i("ViewGroupLifeCycle", "onLayout()");
       final int parentLeft = getPaddingLeft();
       final int parentRight = r - l - getPaddingRight();
       final int parentTop = getPaddingTop();
@@ -968,6 +971,7 @@ public class TagGroup extends ViewGroup {
 
       @Override
       protected void onDraw(Canvas canvas) {
+         Log.i("ViewGroupLifeCycle", "onDraw()");
          canvas.drawArc(mLeftCornerRectF, -180, 90, true, mBackgroundPaint);
          canvas.drawArc(mLeftCornerRectF, -270, 90, true, mBackgroundPaint);
          canvas.drawArc(mRightCornerRectF, -90, 90, true, mBackgroundPaint);
@@ -990,6 +994,8 @@ public class TagGroup extends ViewGroup {
 
       @Override
       protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+         Log.i("ViewGroupLifeCycle", "onSizeChanged()");
+
          super.onSizeChanged(w, h, oldw, oldh);
          int left = (int) borderStrokeWidth;
          int top = (int) borderStrokeWidth;

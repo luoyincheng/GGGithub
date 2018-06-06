@@ -11,4 +11,9 @@
         app:queryHint="search everything you want"
         app:searchHintIcon="@null" />
 
+    <yincheng.gggithub.view.widget.TagGroup
+        android:id="@+id/tag_hotkey"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </android.support.constraint.ConstraintLayout>

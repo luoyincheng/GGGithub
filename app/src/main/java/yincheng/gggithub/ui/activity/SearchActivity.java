@@ -18,6 +18,7 @@ import yincheng.gggithub.mvp.contract.SearchReposContract;
 import yincheng.gggithub.mvp.model.Repo;
 import yincheng.gggithub.mvp.presenter.SearchReposPresenter;
 import yincheng.gggithub.provider.rest.OnLoadMore;
+import yincheng.gggithub.view.widget.TagGroup;
 
 /**
  * Created by yincheng on 2018/6/4/16:31.
@@ -27,6 +28,7 @@ public class SearchActivity extends
       BaseActivity<SearchReposContract.View, SearchReposPresenter> implements
       SearchReposContract.View {
    @BindView(R.id.sv_search) SearchView mSearchView;
+   @BindView(R.id.tag_hotkey) TagGroup tagGroup;
 
    @Override public void onNotifyAdapter(@Nullable List<Repo> items, int page) {
 
@@ -53,7 +55,16 @@ public class SearchActivity extends
    }
 
    @Override protected void initView() {
-
+      tagGroup.setTags(
+            "a",
+            "b",
+            "c",
+            "d",
+            "e",
+            "f",
+            "g",
+            "h"
+      );
    }
 
    @Override protected int getLayoutId() {
