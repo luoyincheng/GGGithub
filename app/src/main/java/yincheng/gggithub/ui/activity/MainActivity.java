@@ -2,9 +2,9 @@ package yincheng.gggithub.ui.activity;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -13,12 +13,9 @@ import yincheng.gggithub.library.bottomnavigation.BottomNavigationBar;
 import yincheng.gggithub.library.bottomnavigation.BottomNavigationItem;
 import yincheng.gggithub.library.bottomnavigation.ShapeBadgeItem;
 import yincheng.gggithub.library.bottomnavigation.TextBadgeItem;
-import yincheng.gggithub.library.materialbottomnavigation.BottomNavigation;
 import yincheng.gggithub.mvp.contract.MainContract;
 import yincheng.gggithub.mvp.presenter.MainPresenter;
 
-import static yincheng.gggithub.library.bottomnavigation.BottomNavigationBar
-      .BACKGROUND_STYLE_DEFAULT;
 import static yincheng.gggithub.library.bottomnavigation.BottomNavigationBar.MODE_DEFAULT;
 import static yincheng.gggithub.library.bottomnavigation.ShapeBadgeItem.SHAPE_OVAL;
 
@@ -30,6 +27,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
       MainContract.View {
    //      @BindView(R.id.bottom_nav_main) BottomNavigation bottomNavigation;
    @BindView(R.id.bottom_navbar_main) BottomNavigationBar bottomNavigationBar;
+   @BindView(R.id.container_main) FrameLayout mainContainer;
    @Nullable
    TextBadgeItem numberBadgeItem;
 
@@ -90,7 +88,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
    public void onViewClick(View view) {
       switch (view.getId()) {
          case R.id.fab:
-            showLoginDialog();
+//            showLoginDialog();
             break;
       }
    }
