@@ -25,7 +25,6 @@ public interface GGContract {
       @CallOnMainThread void showBlockingProgressView(@StringRes int resId);
 
       @CallOnMainThread void showMessage(@StringRes int titleRes, @StringRes int stringRes);
-
    }
 
    interface GGPresenter {

@@ -10,6 +10,8 @@ import java.util.List;
 import yincheng.gggithub.mvp.contract.base.GGContract;
 import yincheng.gggithub.mvp.model.Repo;
 import yincheng.gggithub.provider.rest.OnLoadMore;
+import yincheng.gggithub.view.widget.FontAutoCompleteEditText;
+import yincheng.gggithub.view.widget.TagGroup;
 
 /**
  * Created by yincheng on 2018/6/4/17:00.
@@ -31,5 +33,8 @@ public interface SearchReposContract {
 
    interface Presenter extends GGContract.GGPresenter, GGContract.paginationListener<String> {
       @NonNull ArrayList<Repo> getRepos();
+
+      void onSearch(@NonNull FontAutoCompleteEditText editText, TagGroup tagGroup);
+
    }
 }

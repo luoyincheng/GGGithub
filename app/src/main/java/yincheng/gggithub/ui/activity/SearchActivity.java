@@ -2,9 +2,9 @@ package yincheng.gggithub.ui.activity;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.SearchView;
 import android.text.Editable;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.orhanobut.logger.Logger;
@@ -12,12 +12,14 @@ import com.orhanobut.logger.Logger;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import yincheng.gggithub.R;
 import yincheng.gggithub.mvp.contract.SearchReposContract;
 import yincheng.gggithub.mvp.model.Repo;
 import yincheng.gggithub.mvp.presenter.SearchReposPresenter;
 import yincheng.gggithub.provider.rest.OnLoadMore;
+import yincheng.gggithub.view.widget.FontAutoCompleteEditText;
 import yincheng.gggithub.view.widget.TagGroup;
 
 /**
@@ -27,11 +29,14 @@ import yincheng.gggithub.view.widget.TagGroup;
 public class SearchActivity extends
       BaseActivity<SearchReposContract.View, SearchReposPresenter> implements
       SearchReposContract.View {
-   @BindView(R.id.sv_search) SearchView mSearchView;
+   @BindView(R.id.et_search) FontAutoCompleteEditText editText;
+   @BindView(R.id.iv_search) ImageView ivSearch;
    @BindView(R.id.tag_hotkey) TagGroup tagGroup;
+   private OnLoadMore<String> onLoadMore;
+   private String searchKey = "";
 
    @Override public void onNotifyAdapter(@Nullable List<Repo> items, int page) {
-
+      Toast.makeText(this, "item数量:" + items.size(), Toast.LENGTH_SHORT).show();
    }
 
    @Override public void onSetTabConut(int count) {
@@ -43,7 +48,10 @@ public class SearchActivity extends
    }
 
    @NonNull @Override public OnLoadMore<String> getLoadMoreClass() {
-      return null;
+      if (onLoadMore == null)
+         onLoadMore = new OnLoadMore<>(getPresenter(), searchKey);
+      onLoadMore.setParameter(searchKey);
+      return onLoadMore;
    }
 
    @Override public void onRefresh() {
@@ -56,14 +64,14 @@ public class SearchActivity extends
 
    @Override protected void initView() {
       tagGroup.setTags(
-            "a",
-            "b",
-            "c",
-            "d",
-            "e",
-            "f",
-            "g",
-            "h"
+            "adfa",
+            "bdfadfw",
+            "casdf",
+            "dadf",
+            "asdasdfsfasdfe",
+            "fasafsfasdfasasdfasfas",
+            "gwfdf",
+            "dfh"
       );
    }
 
@@ -92,8 +100,15 @@ public class SearchActivity extends
       return new SearchReposPresenter();
    }
 
-//   @OnTextChanged(value = R.id.sv_search, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
-//   void onViewTextChanged(Editable s) {
-//      Toast.makeText(this, "文字改变了", Toast.LENGTH_SHORT).show();
-//   }
+   @OnTextChanged(value = R.id.et_search, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+   void onViewTextChanged(Editable s) {
+   }
+
+   /**
+    * 将控件直接传送过去在presenter中就可以操作界面
+    */
+   @OnClick(R.id.iv_search)
+   public void onSearchClicked(View view) {
+      getPresenter().onSearch(editText, tagGroup);
+   }
 }

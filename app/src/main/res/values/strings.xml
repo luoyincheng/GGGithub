@@ -34,4 +34,5 @@
     <string name="profile">Profile</string>
     <string name="error">Error</string>
     <string name="search_result_warning">Too many responses \\nShowing the max API allows</string>
+    <string name="search_key_size_required">最少3个字</string>
 </resources>

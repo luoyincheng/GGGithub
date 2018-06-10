@@ -520,7 +520,7 @@ public class TagGroup extends ViewGroup {
     *
     * @param tag the tag text.
     */
-   protected void appendInputTag(String tag) {
+   public void appendInputTag(String tag) {
       final TagView previousInputTag = getInputTag();
       if (previousInputTag != null) {
          throw new IllegalStateException("Already has a INPUT tag in group.");

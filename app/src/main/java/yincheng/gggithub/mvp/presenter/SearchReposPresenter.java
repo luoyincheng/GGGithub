@@ -2,23 +2,22 @@ package yincheng.gggithub.mvp.presenter;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.widget.AutoCompleteTextView;
 
-import com.annimon.stream.internal.Params;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import io.reactivex.functions.Consumer;
 import yincheng.gggithub.R;
-import yincheng.gggithub.library.viewpager.ViewPager;
-import yincheng.gggithub.mvp.contract.SearchContract;
+import yincheng.gggithub.helper.AppHelper;
+import yincheng.gggithub.helper.InputHelper;
 import yincheng.gggithub.mvp.contract.SearchReposContract;
 import yincheng.gggithub.mvp.model.Repo;
 import yincheng.gggithub.mvparchitecture.ViewAction;
 import yincheng.gggithub.provider.network.Pageable;
 import yincheng.gggithub.provider.network.ServiceProvider;
+import yincheng.gggithub.view.widget.FontAutoCompleteEditText;
+import yincheng.gggithub.view.widget.TagGroup;
 
 /**
  * Created by yincheng on 2018/6/4/17:13.
@@ -38,6 +37,18 @@ public class SearchReposPresenter extends BasePresenter<SearchReposContract.View
 
    @NonNull @Override public ArrayList<Repo> getRepos() {
       return repos;
+   }
+
+   @Override public void onSearch(@NonNull FontAutoCompleteEditText editText, TagGroup tagGroup) {
+      boolean isQualified = !InputHelper.isEmpty(editText) && InputHelper.toString(editText).length() > 2;
+      editText.setError(isQualified ? null : editText.getResources().getString(R.string.search_key_size_required));
+      if (isQualified) {
+         String searchKey = InputHelper.toString(editText);
+         tagGroup.appendInputTag(searchKey);
+         editText.dismissDropDown();
+         AppHelper.hideKeyboard(editText);
+         onCallApi(1, searchKey);
+      }
    }
 
    //this is no generated from "getter and setter",this is from Presenter

@@ -4,16 +4,51 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.SearchView
-        android:id="@+id/sv_search"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:queryHint="search everything you want"
-        app:searchHintIcon="@null" />
+        android:background="@android:color/white">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:actionBarSize">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <yincheng.gggithub.view.widget.FontAutoCompleteEditText
+                    android:id="@+id/et_search"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:queryHint="search everything you want" />
+
+                <ImageView
+                    android:id="@+id/iv_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="5dp"
+                    android:padding="4dp"
+                    android:src="@drawable/ic_arrow_forward_black_48dp" />
+            </LinearLayout>
+
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
 
     <yincheng.gggithub.view.widget.TagGroup
         android:id="@+id/tag_hotkey"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/bottom_navigation_elevation"
+        android:layout_marginTop="@dimen/bottom_navigation_elevation"
+        app:atg_textSize="17sp"
+        app:layout_constraintTop_toBottomOf="@+id/appbar" />
 
 </android.support.constraint.ConstraintLayout>
