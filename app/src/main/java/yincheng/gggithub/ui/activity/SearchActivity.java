@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.orhanobut.logger.Logger;
 
@@ -18,6 +17,7 @@ import yincheng.gggithub.R;
 import yincheng.gggithub.mvp.contract.SearchReposContract;
 import yincheng.gggithub.mvp.model.Repo;
 import yincheng.gggithub.mvp.presenter.SearchReposPresenter;
+import yincheng.gggithub.provider.adapter.ReposAdapter;
 import yincheng.gggithub.provider.rest.OnLoadMore;
 import yincheng.gggithub.view.widget.FontAutoCompleteEditText;
 import yincheng.gggithub.view.widget.TagGroup;
@@ -34,9 +34,18 @@ public class SearchActivity extends
    @BindView(R.id.tag_hotkey) TagGroup tagGroup;
    private OnLoadMore<String> onLoadMore;
    private String searchKey = "";
+   private ReposAdapter adapter;
 
    @Override public void onNotifyAdapter(@Nullable List<Repo> items, int page) {
-      Toast.makeText(this, "item数量:" + items.size(), Toast.LENGTH_SHORT).show();
+      if (items == null || items.isEmpty()) {
+         adapter.clear();
+         return;
+      }
+      if (page <= 1) {
+         adapter.insertItems(items);
+      } else {
+         adapter.addItems(items);
+      }
    }
 
    @Override public void onSetTabConut(int count) {

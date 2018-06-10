@@ -4,7 +4,8 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 
-import yincheng.gggithub.view.widget.recyclerview.BaseRecyclerViewAdapter;
+import yincheng.gggithub.library.recyclerview.BaseRecyclerAdapter;
+
 
 /**
  * Created by yincheng on 2018/6/4/14:05.
@@ -17,10 +18,11 @@ public abstract class InfiniteScroll extends RecyclerView.OnScrollListener {
    private boolean loading = true;
    private int startingPageIndex = 0;
    private RecyclerView.LayoutManager layoutManager;
-   private BaseRecyclerViewAdapter adapter;
+   private BaseRecyclerAdapter adapter;
    private boolean newlyAdded = true;
 
-   public InfiniteScroll() {}
+   public InfiniteScroll() {
+   }
 
    private void initLayoutManager(RecyclerView.LayoutManager layoutManager) {
       this.layoutManager = layoutManager;

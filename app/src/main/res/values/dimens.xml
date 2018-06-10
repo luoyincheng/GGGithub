@@ -113,5 +113,14 @@
 
     <dimen name="bbn_badge_size">8dp</dimen>
     <dimen name="bbn_ripple_radius">52dp</dimen>
+    <dimen name="fab_spacing">5dp</dimen>
+    <dimen name="divider_height">5dp</dimen>
+    <dimen name="keyline_2">2dp</dimen>
+    <dimen name="spacing_xs_large">5dp</dimen>
+    <dimen name="grid_spacing">5dp</dimen>
+    <dimen name="spacing_normal">5dp</dimen>
+    <dimen name="avatar_margin_end">5dp</dimen>
+    <dimen name="avatar_margin">5dp</dimen>
+    <dimen name="spacing_micro">5dp</dimen>
 </resources>
 
