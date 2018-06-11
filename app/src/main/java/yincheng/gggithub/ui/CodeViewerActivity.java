@@ -11,6 +11,10 @@ import yincheng.gggithub.ui.activity.BaseActivity;
  * Github : yincheng.luo
  */
 public class CodeViewerActivity extends BaseActivity {
+   @Override protected void initData() {
+
+   }
+
    @Override protected void initView() {
 
    }

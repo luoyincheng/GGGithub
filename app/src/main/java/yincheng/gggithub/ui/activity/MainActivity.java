@@ -34,6 +34,10 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
    @Nullable
    ShapeBadgeItem shapeBadgeItem;
 
+   @Override protected void initData() {
+
+   }
+
    @Override protected void initView() {
       int lastSelectedPosition = 1;
       numberBadgeItem = new TextBadgeItem()

@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.orhanobut.logger.Logger;
 
@@ -14,6 +15,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import yincheng.gggithub.R;
+import yincheng.gggithub.library.recyclerview.DynamicRecyclerView;
 import yincheng.gggithub.mvp.contract.SearchReposContract;
 import yincheng.gggithub.mvp.model.Repo;
 import yincheng.gggithub.mvp.presenter.SearchReposPresenter;
@@ -32,18 +34,22 @@ public class SearchActivity extends
    @BindView(R.id.et_search) FontAutoCompleteEditText editText;
    @BindView(R.id.iv_search) ImageView ivSearch;
    @BindView(R.id.tag_hotkey) TagGroup tagGroup;
+   @BindView(R.id.rv_search) DynamicRecyclerView recyclerView;
    private OnLoadMore<String> onLoadMore;
    private String searchKey = "";
    private ReposAdapter adapter;
 
    @Override public void onNotifyAdapter(@Nullable List<Repo> items, int page) {
       if (items == null || items.isEmpty()) {
+         Toast.makeText(this, "items is empty", Toast.LENGTH_SHORT).show();
          adapter.clear();
          return;
       }
       if (page <= 1) {
+         Toast.makeText(this, "page <= 1", Toast.LENGTH_SHORT).show();
          adapter.insertItems(items);
       } else {
+         Toast.makeText(this, "page > 1", Toast.LENGTH_SHORT).show();
          adapter.addItems(items);
       }
    }
@@ -70,6 +76,13 @@ public class SearchActivity extends
    @Override public void onClick(View v) {
 
    }
+
+   @Override protected void initData() {
+      adapter = new ReposAdapter(getPresenter().getRepos(), true, true);
+//      adapter.setListener(getPresenter());
+      recyclerView.setAdapter(adapter);
+   }
+
 
    @Override protected void initView() {
       tagGroup.setTags(
