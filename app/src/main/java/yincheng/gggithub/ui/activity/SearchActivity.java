@@ -2,6 +2,7 @@ package yincheng.gggithub.ui.activity;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
 import android.view.View;
 import android.widget.ImageView;
@@ -52,6 +53,7 @@ public class SearchActivity extends
          Toast.makeText(this, "page > 1", Toast.LENGTH_SHORT).show();
          adapter.addItems(items);
       }
+      Toast.makeText(this, adapter.getItemCount() + "", Toast.LENGTH_SHORT).show();
    }
 
    @Override public void onSetTabConut(int count) {
@@ -80,7 +82,6 @@ public class SearchActivity extends
    @Override protected void initData() {
       adapter = new ReposAdapter(getPresenter().getRepos(), true, true);
 //      adapter.setListener(getPresenter());
-      recyclerView.setAdapter(adapter);
    }
 
 
@@ -95,6 +96,8 @@ public class SearchActivity extends
             "gwfdf",
             "dfh"
       );
+      recyclerView.setAdapter(adapter);
+      recyclerView.setLayoutManager(new LinearLayoutManager(this));
    }
 
    @Override protected int getLayoutId() {
