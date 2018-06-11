@@ -42,15 +42,12 @@ public class SearchActivity extends
 
    @Override public void onNotifyAdapter(@Nullable List<Repo> items, int page) {
       if (items == null || items.isEmpty()) {
-         Toast.makeText(this, "items is empty", Toast.LENGTH_SHORT).show();
          adapter.clear();
          return;
       }
       if (page <= 1) {
-         Toast.makeText(this, "page <= 1", Toast.LENGTH_SHORT).show();
          adapter.insertItems(items);
       } else {
-         Toast.makeText(this, "page > 1", Toast.LENGTH_SHORT).show();
          adapter.addItems(items);
       }
       Toast.makeText(this, adapter.getItemCount() + "", Toast.LENGTH_SHORT).show();
