@@ -26,6 +26,7 @@ public class BuilderDialog extends Dialog {
    private View dialogView;
    @LayoutRes private int layoutId;
    @AnimRes private int animRes;
+   private boolean cancelable;
 
    private float widthRatio;
    private float aspectRatio;
@@ -48,6 +49,7 @@ public class BuilderDialog extends Dialog {
    @Override protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       setContentView(layoutId);
+      setCancelable(cancelable);
    }
 
    protected void init(DialogBuilder dialogBuilder) {
@@ -57,6 +59,7 @@ public class BuilderDialog extends Dialog {
       if ((layoutId = dialogBuilder.mLayoutId) == -1)
          throw new IllegalArgumentException("layout cannot be null");
       animRes = dialogBuilder.animRes;
+      cancelable = dialogBuilder.cancelable;
    }
 
    @Override protected void onStart() {
@@ -88,6 +91,7 @@ public class BuilderDialog extends Dialog {
       private float aspectRatio = 0.5f;
       @AnimRes private int animRes = -1;
       @StyleRes private int styleRes = R.style.progress_dialog;
+      private boolean cancelable = false;
 
       public DialogBuilder(Context context) {
          this.mContext = context;
@@ -121,6 +125,11 @@ public class BuilderDialog extends Dialog {
 
       public DialogBuilder withStyle(@StyleRes int styleRes) {
          this.styleRes = styleRes;
+         return this;
+      }
+
+      public DialogBuilder isCancelable(boolean cancelable) {
+         this.cancelable = cancelable;
          return this;
       }
 
