@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -16,6 +17,7 @@ import yincheng.gggithub.library.bottomnavigation.ShapeBadgeItem;
 import yincheng.gggithub.library.bottomnavigation.TextBadgeItem;
 import yincheng.gggithub.mvp.contract.MainContract;
 import yincheng.gggithub.mvp.presenter.MainPresenter;
+import yincheng.gggithub.provider.annotation.Recite;
 
 import static yincheng.gggithub.library.bottomnavigation.BottomNavigationBar.MODE_DEFAULT;
 import static yincheng.gggithub.library.bottomnavigation.ShapeBadgeItem.SHAPE_OVAL;
@@ -34,8 +36,11 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
    @Nullable
    ShapeBadgeItem shapeBadgeItem;
 
-   @Override protected void initData() {
-
+   /**
+    * 通过注解的方式找到需要加强记忆的代码
+    */
+   @Recite @Override protected void initData() {
+      bottomNavigationBar.setTabSelectedListener(getPresenter());
    }
 
    @Override protected void initView() {
@@ -61,11 +66,10 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
             .setFirstSelectedPosition(lastSelectedPosition > 2 ? 2 : lastSelectedPosition)
             .setBarBackgroundColor(R.color.colorPrimary)
             .initialise();
-
    }
 
    @Override protected int getLayoutId() {
-      return R.layout.activity_main;
+      return R.layout.app_bar_main;
    }
 
    @Override public void showBlockingProgressView(int resId) {
@@ -89,7 +93,10 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
       }
    }
 
+   /**
+    * 通过presenter来执行
+    */
    @Override public void onNavigationSelected(int navigationType) {
-
+      Toast.makeText(this, "从presenter传回来的数据:" + navigationType, Toast.LENGTH_SHORT).show();
    }
 }

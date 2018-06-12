@@ -1,6 +1,5 @@
 package yincheng.gggithub.mvp.presenter;
 
-import android.util.Log;
 
 import yincheng.gggithub.mvp.contract.MainContract;
 import yincheng.gggithub.mvparchitecture.ViewAction;
@@ -13,7 +12,6 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements
       MainContract.Presenter {
 
    @Override public void onTabSelected(int position) {
-      Log.i("fasdfasdfasf", "dfasdfasdfasdf");
       sendToView(new ViewAction<MainContract.View>() {
          @Override public void call(MainContract.View view) {
             view.onNavigationSelected(position);
