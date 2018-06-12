@@ -40,8 +40,10 @@ public class SearchReposPresenter extends BasePresenter<SearchReposContract.View
    }
 
    @Override public void onSearch(@NonNull FontAutoCompleteEditText editText, TagGroup tagGroup) {
-      boolean isQualified = !InputHelper.isEmpty(editText) && InputHelper.toString(editText).length() > 2;
-      editText.setError(isQualified ? null : editText.getResources().getString(R.string.search_key_size_required));
+      boolean isQualified = !InputHelper.isEmpty(editText) && InputHelper.toString(editText)
+            .length() > 1;
+      editText.setError(isQualified ? null : editText.getResources().getString(R.string
+            .search_key_size_required));
       if (isQualified) {
          String searchKey = InputHelper.toString(editText);
          tagGroup.appendInputTag(searchKey);
@@ -110,6 +112,4 @@ public class SearchReposPresenter extends BasePresenter<SearchReposContract.View
             });
       return true;
    }
-
-
 }

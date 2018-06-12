@@ -22,6 +22,7 @@ import yincheng.gggithub.mvp.model.Repo;
 import yincheng.gggithub.mvp.presenter.SearchReposPresenter;
 import yincheng.gggithub.provider.adapter.ReposAdapter;
 import yincheng.gggithub.provider.rest.OnLoadMore;
+import yincheng.gggithub.view.widget.BossProgress;
 import yincheng.gggithub.view.widget.FontAutoCompleteEditText;
 import yincheng.gggithub.view.widget.TagGroup;
 
@@ -36,11 +37,13 @@ public class SearchActivity extends
    @BindView(R.id.iv_search) ImageView ivSearch;
    @BindView(R.id.tag_hotkey) TagGroup tagGroup;
    @BindView(R.id.rv_search) DynamicRecyclerView recyclerView;
+   @BindView(R.id.bossProgress) BossProgress bossProgress;
    private OnLoadMore<String> onLoadMore;
    private String searchKey = "";
    private ReposAdapter adapter;
 
    @Override public void onNotifyAdapter(@Nullable List<Repo> items, int page) {
+      hideProgressView();
       if (items == null || items.isEmpty()) {
          adapter.clear();
          return;
@@ -50,7 +53,6 @@ public class SearchActivity extends
       } else {
          adapter.addItems(items);
       }
-      Toast.makeText(this, adapter.getItemCount() + "", Toast.LENGTH_SHORT).show();
    }
 
    @Override public void onSetTabConut(int count) {
@@ -73,7 +75,7 @@ public class SearchActivity extends
    }
 
    @Override public void onClick(View v) {
-
+      Toast.makeText(this, "点击了", Toast.LENGTH_SHORT).show();
    }
 
    @Override protected void initData() {
@@ -99,14 +101,6 @@ public class SearchActivity extends
 
    @Override protected int getLayoutId() {
       return R.layout.activity_search;
-   }
-
-   @Override public void showProgressView(int resId) {
-
-   }
-
-   @Override public void hideProgressView() {
-
    }
 
    @Override public void showBlockingProgressView(int resId) {

@@ -6,9 +6,11 @@ import android.support.annotation.Nullable;
 
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
+import yincheng.gggithub.R;
 import yincheng.gggithub.helper.RxHelper;
 import yincheng.gggithub.mvp.contract.base.GGContract;
 import yincheng.gggithub.mvparchitecture.TiPresenter;
+import yincheng.gggithub.mvparchitecture.ViewAction;
 import yincheng.gggithub.mvparchitecture.rx2.RxGGPresenterDisposableManager;
 
 /**
@@ -62,7 +64,14 @@ public class BasePresenter<V extends GGContract.GGView> extends TiPresenter<V> i
    }
 
    @Override public void onSubscribed(boolean cancelable) {
-
+      sendToView(new ViewAction<V>() {
+         @Override public void call(V v) {
+            if (cancelable)
+               v.showProgressView();// TODO: 2018/6/12
+            else
+               v.showBlockingProgressView(R.string.loading);
+         }
+      });
    }
 
    @Override public void onError(@NonNull Throwable throwable) {

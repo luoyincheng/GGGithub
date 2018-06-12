@@ -23,7 +23,7 @@ public class CodeViewerActivity extends BaseActivity {
       return 0;
    }
 
-   @Override public void showProgressView(int resId) {
+   @Override public void showProgressView() {
 
    }
 

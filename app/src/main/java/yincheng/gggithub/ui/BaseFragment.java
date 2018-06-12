@@ -12,7 +12,7 @@ import yincheng.gggithub.mvparchitecture.TiFragment;
  */
 public class BaseFragment<V extends GGContract.GGView, P extends BasePresenter<V>> extends
       TiFragment<P, V> implements GGContract.GGView {
-   @Override public void showProgressView(int resId) {
+   @Override public void showProgressView() {
 
    }
 

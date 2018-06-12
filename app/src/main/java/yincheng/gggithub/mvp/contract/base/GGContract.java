@@ -18,7 +18,7 @@ import yincheng.gggithub.mvparchitecture.callonmainthread.CallOnMainThread;
 public interface GGContract {
 
    interface GGView extends TiView {
-      @CallOnMainThread void showProgressView(@StringRes int resId);
+      @CallOnMainThread void showProgressView();
 
       @CallOnMainThread void hideProgressView();
 

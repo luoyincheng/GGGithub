@@ -68,7 +68,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
       return R.layout.activity_main;
    }
 
-   @Override public void showProgressView(int resId) {
+   @Override public void showProgressView() {
 
    }
 

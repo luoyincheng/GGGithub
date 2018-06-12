@@ -83,7 +83,7 @@ public abstract class BaseDialogFragment<V extends GGContract.GGView, P extends 
 
 
    //**********************************************************************************************
-   @Override public void showProgressView(@StringRes int resId) { ggView.showProgressView(resId); }
+   @Override public void showProgressView() { ggView.showProgressView(); }
 
    @Override public void hideProgressView() {ggView.hideProgressView(); }
 

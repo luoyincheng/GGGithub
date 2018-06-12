@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:interpolator="@android:anim/linear_interpolator"
+    android:shareInterpolator="true">
+    <!--该动画将view放大 1.1 倍-->
+    <!--1.0 / 1.0 = 1.1 / 1.1-->
+    <scale
+        android:duration="100"
+        android:fromXScale="1.0"
+        android:fromYScale="1.0"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:toXScale="1.1"
+        android:toYScale="1.1" />
+    <!--现在想要将 1.1 倍缩小到原大小的 0.9 倍-->
+    <!--1.1 / 1.0 = 0.9 / 0.81818-->
+    <scale
+        android:duration="100"
+        android:fromXScale="1.0"
+        android:fromYScale="1.0"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:startOffset="100"
+        android:toXScale="0.81818"
+        android:toYScale="0.81818" />
+
+    <!--现在想要将 0.9 倍放大到原大小的 1.05 倍-->
+    <!--0.9 / 1.0 = 1.05 / 1.16667-->
+    <scale
+        android:duration="100"
+        android:fromXScale="1.0"
+        android:fromYScale="1.0"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:startOffset="200"
+        android:toXScale="1.16667"
+        android:toYScale="1.16667" />
+    <!--继续由 1.05 倍 缩小到 0.95 倍-->
+    <!--1.05 / 1.0 = 0.95 : 0.90476 -->
+    <scale
+        android:duration="100"
+        android:fromXScale="1.0"
+        android:fromYScale="1.0"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:startOffset="300"
+        android:toXScale="0.90476"
+        android:toYScale="0.90476" />
+
+    <!--0.95 到 1.0 -->
+    <!--0.95 / 1.0 = 1.0 / 1.05263 -->
+    <scale
+        android:duration="100"
+        android:fromXScale="1.0"
+        android:fromYScale="1.0"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:startOffset="400"
+        android:toXScale="1.05263"
+        android:toYScale="1.05263" />
+
+</set>

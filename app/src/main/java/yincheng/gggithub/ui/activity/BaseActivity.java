@@ -5,9 +5,11 @@ import android.support.annotation.LayoutRes;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import yincheng.gggithub.R;
 import yincheng.gggithub.mvp.contract.base.GGContract;
 import yincheng.gggithub.mvp.presenter.BasePresenter;
 import yincheng.gggithub.mvparchitecture.TiActivity;
+import yincheng.gggithub.ui.dialog.BuilderDialog;
 import yincheng.gggithub.ui.dialogfragment.DialogFragmentLogin;
 
 /**
@@ -18,6 +20,7 @@ public abstract class BaseActivity<V extends GGContract.GGView, P extends BasePr
       TiActivity<P, V> implements GGContract.GGView {
    private Unbinder unbinder;
    private DialogFragmentLogin dialogFragmentLogin;
+   private BuilderDialog progressDialog;
 
    @Override protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
@@ -40,6 +43,10 @@ public abstract class BaseActivity<V extends GGContract.GGView, P extends BasePr
 
    @Override protected void onDestroy() {
       super.onDestroy();
+      if (progressDialog != null) {
+         progressDialog.cancel();
+         progressDialog = null;
+      }
       unbinder.unbind();
    }
 
@@ -55,6 +62,22 @@ public abstract class BaseActivity<V extends GGContract.GGView, P extends BasePr
       if (dialogFragmentLogin.getDialog() == null)
          new DialogFragmentLogin().show(getSupportFragmentManager(), "BaseActivity");
       else dialogFragmentLogin.getDialog().show();
+   }
 
+   /**
+    * 为所有继承自BaseActivity的Activity提供显示进度条的显示和隐藏的默认实现
+    */
+   @Override public void showProgressView() {
+      if (progressDialog == null)
+         progressDialog = new BuilderDialog
+               .DialogBuilder(this)
+               .withLayout(R.layout.dialog_progress)
+               .Build();
+      progressDialog.show();
+   }
+
+   @Override public void hideProgressView() {
+      if (progressDialog != null)
+         progressDialog.cancel();
    }
 }
