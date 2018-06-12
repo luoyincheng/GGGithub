@@ -7,6 +7,7 @@ import android.support.annotation.AnimRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StyleRes;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.Window;
@@ -86,6 +87,7 @@ public class BuilderDialog extends Dialog {
       private float widthRatio = 0.5f;
       private float aspectRatio = 0.5f;
       @AnimRes private int animRes = -1;
+      @StyleRes private int styleRes = R.style.progress_dialog;
 
       public DialogBuilder(Context context) {
          this.mContext = context;
@@ -117,8 +119,13 @@ public class BuilderDialog extends Dialog {
          return this;
       }
 
+      public DialogBuilder withStyle(@StyleRes int styleRes) {
+         this.styleRes = styleRes;
+         return this;
+      }
+
       public BuilderDialog Build() {
-         return new BuilderDialog(this, R.style.progress_dialog);
+         return new BuilderDialog(this, styleRes);
       }
    }
 }

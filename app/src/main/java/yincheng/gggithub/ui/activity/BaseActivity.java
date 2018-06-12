@@ -72,6 +72,7 @@ public abstract class BaseActivity<V extends GGContract.GGView, P extends BasePr
          progressDialog = new BuilderDialog
                .DialogBuilder(this)
                .withLayout(R.layout.dialog_progress)
+               .withStyle(R.style.progress_dialog)
                .Build();
       progressDialog.show();
    }
