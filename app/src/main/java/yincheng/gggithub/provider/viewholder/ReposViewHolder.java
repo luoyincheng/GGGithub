@@ -13,6 +13,7 @@ import butterknife.BindView;
 import yincheng.gggithub.R;
 import yincheng.gggithub.helper.InputHelper;
 import yincheng.gggithub.helper.LinkParserHelper;
+import yincheng.gggithub.helper.ParseDateFormat;
 import yincheng.gggithub.library.recyclerview.BaseRecyclerAdapter;
 import yincheng.gggithub.library.recyclerview.BaseViewHolder;
 import yincheng.gggithub.mvp.model.Repo;
@@ -85,7 +86,7 @@ public class ReposViewHolder extends BaseViewHolder<Repo> {
       NumberFormat numberFormat = NumberFormat.getNumberInstance();
       stars.setText(numberFormat.format(repo.getStargazers_count()));
       forks.setText(numberFormat.format(repo.getForks()));
-//      date.setText(ParseDateFormat.getTimeAgo(repo.getUpdatedAt()));
+      date.setText(ParseDateFormat.getTimeAgo(repo.getUpdated_at()));
       if (!InputHelper.isEmpty(repo.getLanguage())) {
          language.setText(repo.getLanguage());
 //         language.setTextColor(ColorsProvider.getColorAsColor(repo.getLanguage(), language

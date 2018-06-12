@@ -14,7 +14,7 @@ public class TypefaceHelper {
    private static Typeface typeFace;
 
    public static void generateTypeface(Context context) {
-      typeFace = Typeface.createFromAsset(context.getAssets(), "fonts/app_font.ttf");
+      typeFace = Typeface.createFromAsset(context.getAssets(), "fonts/Arial_Rounded_MT_Bold.ttf");
    }
 
    public static void applyTypeface(TextView textView) {

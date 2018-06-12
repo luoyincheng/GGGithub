@@ -13,7 +13,9 @@ import lombok.Setter;
  * Created by yincheng on 2018/6/4/17:04.
  * github:luoyincheng
  */
-@Getter @Setter @NoArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
 public class Repo implements Parcelable {
    int id;
    String node_id;
@@ -28,9 +30,12 @@ public class Repo implements Parcelable {
    String language;
    long forks;
    long stargazers_count;
+   String updated_at;
 
 
-   @Getter @Setter public class Owner {
+   @Getter
+   @Setter
+   public class Owner {
       String login;
       long id;
       String node_id;
@@ -71,5 +76,7 @@ public class Repo implements Parcelable {
       return 0;
    }
 
-   @Override public void writeToParcel(Parcel parcel, int i) {parcel.writeInt(id);}
+   @Override public void writeToParcel(Parcel parcel, int i) {
+      parcel.writeInt(id);
+   }
 }
