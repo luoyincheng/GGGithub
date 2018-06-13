@@ -7,7 +7,6 @@ import android.graphics.Paint;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -17,7 +16,6 @@ import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import yincheng.gggithub.R;
 
@@ -30,6 +28,7 @@ public class BossProgress extends ViewGroup {
    private int circleRadius;
    private int circleMargin;
    private int circleNum;
+   private int circlrColor;
    private List<Animation> shrinkAnimationList;
    private List<Animation> expandAnimationList;
    private List<Animation.AnimationListener> shrinkAnimationListenerList;
@@ -52,6 +51,7 @@ public class BossProgress extends ViewGroup {
                .BossProgress_circleRadius, 15);
          circleMargin = (int) array.getDimension(R.styleable.BossProgress_circleMargin, 15);
          circleNum = array.getInt(R.styleable.BossProgress_circleNum, 3);
+         circlrColor = array.getColor(R.styleable.BossProgress_circleColor, getResources().getColor(R.color.color_333));
       } finally {
          array.recycle();
       }
@@ -140,7 +140,7 @@ public class BossProgress extends ViewGroup {
    }
 
    private void addChildren() {
-      for (int i = 0; i < circleNum; i++) addView(new RoundedView(this.getContext(), circleRadius));
+      for (int i = 0; i < circleNum; i++) addView(new RoundedView(this));
    }
 
    @Override protected void onDetachedFromWindow() {
@@ -154,17 +154,19 @@ public class BossProgress extends ViewGroup {
 
    class RoundedView extends View {
       private int radius;
+      private int color;
       private Paint paint;
 
-      public RoundedView(Context context, int radius) {
-         super(context);
-         this.radius = radius;
+      public RoundedView(BossProgress parent) {
+         super(parent.getContext());
+         this.radius = parent.circleRadius;
+         this.color = parent.circlrColor;
          init();
       }
 
       void init() {
          paint = new Paint();
-         paint.setColor(getResources().getColor(R.color.colorAccent));
+         paint.setColor(color);
          paint.setAntiAlias(true);
          paint.setStyle(Paint.Style.FILL);
       }

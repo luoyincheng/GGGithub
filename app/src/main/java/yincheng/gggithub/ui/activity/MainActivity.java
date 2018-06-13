@@ -19,7 +19,6 @@ import yincheng.gggithub.mvp.contract.MainContract;
 import yincheng.gggithub.mvp.presenter.MainPresenter;
 import yincheng.gggithub.provider.annotation.Recite;
 
-import static yincheng.gggithub.library.bottomnavigation.BottomNavigationBar.MODE_DEFAULT;
 import static yincheng.gggithub.library.bottomnavigation.ShapeBadgeItem.SHAPE_OVAL;
 
 /**
@@ -54,7 +53,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
             .setShape(SHAPE_OVAL)
             .setShapeColorResource(R.color.pickerview_wheelview_textcolor_out)
             .setGravity(Gravity.TOP | Gravity.END);
-      bottomNavigationBar.setMode(MODE_DEFAULT);
+      bottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED_NO_TITLE);
       bottomNavigationBar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC);
       bottomNavigationBar.addItem(new BottomNavigationItem(R.drawable
             .ic_view_category_black_48dp, "Categories")
@@ -64,7 +63,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
                   .setBadgeItem(numberBadgeItem))
             .addItem(new BottomNavigationItem(R.drawable.ic_person_black_48dp, "Profile"))
             .setFirstSelectedPosition(lastSelectedPosition > 2 ? 2 : lastSelectedPosition)
-            .setBarBackgroundColor(R.color.colorPrimary)
+            .setBarBackgroundColor(R.color.colorWhite)
             .initialise();
    }
 

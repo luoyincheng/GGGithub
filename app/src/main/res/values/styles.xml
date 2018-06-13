@@ -21,6 +21,7 @@
         <item name="circleRadius">15dp</item>
         <item name="circleMargin">15dp</item>
         <item name="circleNum">3</item>
+        <item name="circleColor">@color/colorPrimary</item>
     </style>
 
     <style name="dialog1" parent="android:Theme.Dialog">

@@ -5,6 +5,7 @@
         <attr name="circleRadius" format="dimension" />
         <attr name="circleMargin" format="dimension" />
         <attr name="circleNum" format="integer" />
+        <attr name="circleColor" format="color" />
     </declare-styleable>
 
     <declare-styleable name="AutoLinearLayout">

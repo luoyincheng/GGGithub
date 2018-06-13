@@ -14,6 +14,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.OnEditorAction;
 import butterknife.OnTextChanged;
 import yincheng.gggithub.R;
 import yincheng.gggithub.library.recyclerview.DynamicRecyclerView;
@@ -21,6 +22,7 @@ import yincheng.gggithub.mvp.contract.SearchReposContract;
 import yincheng.gggithub.mvp.model.Repo;
 import yincheng.gggithub.mvp.presenter.SearchReposPresenter;
 import yincheng.gggithub.provider.adapter.ReposAdapter;
+import yincheng.gggithub.provider.annotation.Recite;
 import yincheng.gggithub.provider.rest.OnLoadMore;
 import yincheng.gggithub.view.widget.BossProgress;
 import yincheng.gggithub.view.widget.FontAutoCompleteEditText;
@@ -34,6 +36,7 @@ public class SearchActivity extends
       BaseActivity<SearchReposContract.View, SearchReposPresenter> implements
       SearchReposContract.View {
    @BindView(R.id.et_search) FontAutoCompleteEditText editText;
+   @BindView(R.id.iv_clean) ImageView ivClean;
    @BindView(R.id.iv_search) ImageView ivSearch;
    @BindView(R.id.tag_hotkey) TagGroup tagGroup;
    @BindView(R.id.rv_search) DynamicRecyclerView recyclerView;
@@ -118,13 +121,26 @@ public class SearchActivity extends
 
    @OnTextChanged(value = R.id.et_search, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
    void onViewTextChanged(Editable s) {
+      ivClean.setVisibility(s.toString().length() > 0 ? View.VISIBLE : View.GONE);
    }
 
    /**
     * 将控件直接传送过去在presenter中就可以操作界面
     */
    @OnClick(R.id.iv_search)
-   public void onSearchClicked(View view) {
+   public void onSearch() {
       getPresenter().onSearch(editText, tagGroup);
+   }
+
+   @OnClick(R.id.iv_clean)
+   public void onClean() {
+      editText.setText("");
+   }
+
+
+   @Recite @OnEditorAction(R.id.et_search) boolean onEditor() {
+      onSearch();
+      Toast.makeText(this, "1.在设置中可以控制默认的搜索结果排序2.将star数量和fork数量用rxjava2的zip方法整合为一个数3.在主界面添加以为taggroup形式显示的过滤", Toast.LENGTH_SHORT).show();
+      return true;
    }
 }

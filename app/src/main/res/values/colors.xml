@@ -17,4 +17,8 @@
     <color name="bbn_topShadowEndColor">#AA000000</color>
     <color name="bbn_topShadowCenterColor">#66000000</color>
     <color name="transparent">#00000000</color>
+    <color name="color_333">#333333</color>
+    <color name="color_666">#666666</color>
+    <color name="color_999">#999999</color>
+    <color name="color_bbb">#bbbbbb</color>
 </resources>
