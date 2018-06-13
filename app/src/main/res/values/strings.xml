@@ -38,4 +38,8 @@
     <string name="no_data">no data</string>
     <string name="reload">reload</string>
     <string name="loading">loading...</string>
+    <string name="filter_repository">repository</string>
+    <string name="filter_user">user</string>
+    <string name="filter_issue">issue</string>
+    <string name="filter_code">code</string>
 </resources>

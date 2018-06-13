@@ -3,10 +3,13 @@ package yincheng.gggithub.mvp.contract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.Editable;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import yincheng.gggithub.helper.InputHelper;
 import yincheng.gggithub.mvp.contract.base.GGContract;
 import yincheng.gggithub.mvp.model.Repo;
 import yincheng.gggithub.provider.rest.OnLoadMore;
@@ -29,12 +32,15 @@ public interface SearchReposContract {
 
       @NonNull OnLoadMore<String> getLoadMoreClass();
 
+      void onShowFilter();
    }
 
-   interface Presenter extends GGContract.GGPresenter, GGContract.paginationListener<String> {
+   interface Presenter extends GGContract.GGPresenter, GGContract.paginationListener<String>,
+         android.view.View.OnFocusChangeListener, android.view.View.OnKeyListener {
       @NonNull ArrayList<Repo> getRepos();
 
-      void onSearch(@NonNull FontAutoCompleteEditText editText, TagGroup tagGroup);
+      void onSearch(@NonNull FontAutoCompleteEditText editText, TagGroup tagGroup, String
+            searchType);
 
    }
 }

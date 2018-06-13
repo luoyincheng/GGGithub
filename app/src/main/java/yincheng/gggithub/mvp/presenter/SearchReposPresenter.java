@@ -2,6 +2,8 @@ package yincheng.gggithub.mvp.presenter;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.view.KeyEvent;
+import android.view.View;
 
 import com.orhanobut.logger.Logger;
 
@@ -39,7 +41,8 @@ public class SearchReposPresenter extends BasePresenter<SearchReposContract.View
       return repos;
    }
 
-   @Override public void onSearch(@NonNull FontAutoCompleteEditText editText, TagGroup tagGroup) {
+   @Override public void onSearch(@NonNull FontAutoCompleteEditText editText, TagGroup tagGroup,
+                                  String searchType) {
       boolean isQualified = !InputHelper.isEmpty(editText) && InputHelper.toString(editText)
             .length() > 1;
       editText.setError(isQualified ? null : editText.getResources().getString(R.string
@@ -111,5 +114,22 @@ public class SearchReposPresenter extends BasePresenter<SearchReposContract.View
                }
             });
       return true;
+   }
+
+   @Override public void onFocusChange(View v, boolean hasFocus) {
+      if (v instanceof FontAutoCompleteEditText && !hasFocus)
+         sendToView(view -> view.onShowFilter());
+   }
+
+   @Override public boolean onKey(View v, int keyCode, KeyEvent event) {
+      if (event.getAction() == KeyEvent.ACTION_DOWN) {
+         sendToView(new ViewAction<SearchReposContract.View>() {
+            @Override public void call(SearchReposContract.View view) {
+               view.onShowFilter();
+            }
+         });
+         return true;
+      }
+      return false;
    }
 }

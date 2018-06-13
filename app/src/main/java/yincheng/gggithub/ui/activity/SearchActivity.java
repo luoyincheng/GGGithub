@@ -4,8 +4,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.orhanobut.logger.Logger;
@@ -13,10 +17,12 @@ import com.orhanobut.logger.Logger;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.BindViews;
 import butterknife.OnClick;
 import butterknife.OnEditorAction;
 import butterknife.OnTextChanged;
 import yincheng.gggithub.R;
+import yincheng.gggithub.helper.KeyboardHelper;
 import yincheng.gggithub.library.recyclerview.DynamicRecyclerView;
 import yincheng.gggithub.mvp.contract.SearchReposContract;
 import yincheng.gggithub.mvp.model.Repo;
@@ -25,6 +31,7 @@ import yincheng.gggithub.provider.adapter.ReposAdapter;
 import yincheng.gggithub.provider.annotation.Recite;
 import yincheng.gggithub.provider.rest.OnLoadMore;
 import yincheng.gggithub.view.widget.BossProgress;
+import yincheng.gggithub.view.widget.FilterRadioButton;
 import yincheng.gggithub.view.widget.FontAutoCompleteEditText;
 import yincheng.gggithub.view.widget.TagGroup;
 
@@ -34,14 +41,20 @@ import yincheng.gggithub.view.widget.TagGroup;
  */
 public class SearchActivity extends
       BaseActivity<SearchReposContract.View, SearchReposPresenter> implements
-      SearchReposContract.View {
+      SearchReposContract.View, View.OnKeyListener {
+   @BindView(android.R.id.content) View contentView;
    @BindView(R.id.et_search) FontAutoCompleteEditText editText;
    @BindView(R.id.iv_clean) ImageView ivClean;
    @BindView(R.id.iv_search) ImageView ivSearch;
    @BindView(R.id.tag_hotkey) TagGroup tagGroup;
    @BindView(R.id.rv_search) DynamicRecyclerView recyclerView;
    @BindView(R.id.bossProgress) BossProgress bossProgress;
+   @BindView(R.id.filter_view) LinearLayout filterView;
+   @BindView(R.id.search_type) RadioGroup search_type;
+   //   @BindViews({R.id.filter_repository, R.id.filter_user, R.id.filter_issue, R.id.filter_code})
+//   List<FilterRadioButton> filterRadioButtons;
    private OnLoadMore<String> onLoadMore;
+   private boolean[] filterResults;
    private String searchKey = "";
    private ReposAdapter adapter;
 
@@ -73,6 +86,12 @@ public class SearchActivity extends
       return onLoadMore;
    }
 
+   @Override public void onShowFilter() {
+      Toast.makeText(this, "onShowFilter:", Toast.LENGTH_SHORT).show();
+      filterView.setVisibility(View.VISIBLE);
+      KeyboardHelper.toggleSoftInput();
+   }
+
    @Override public void onRefresh() {
 
    }
@@ -81,25 +100,25 @@ public class SearchActivity extends
       Toast.makeText(this, "点击了", Toast.LENGTH_SHORT).show();
    }
 
-   @Override protected void initData() {
+   @Recite @Override protected void initData() {
+//      filterResults = new boolean[filterRadioButtons.size()];
       adapter = new ReposAdapter(getPresenter().getRepos(), true, true);
+      editText.setOnFocusChangeListener(getPresenter());
+//      editText.setOnKeyListener(getPresenter());
+      editText.setOnKeyListener(this);
 //      adapter.setListener(getPresenter());
    }
 
 
    @Override protected void initView() {
+//      contentView = findViewById(android.R.id.content);
       tagGroup.setTags(
-            "adfa",
-            "bdfadfw",
-            "casdf",
-            "dadf",
-            "asdasdfsfasdfe",
-            "fasafsfasdfasasdfasfas",
-            "gwfdf",
             "dfh"
       );
       recyclerView.setAdapter(adapter);
       recyclerView.setLayoutManager(new LinearLayoutManager(this));
+      if (editText.isFocused())
+         Toast.makeText(this, "输入框正在持有焦点", Toast.LENGTH_SHORT).show();
    }
 
    @Override protected int getLayoutId() {
@@ -129,7 +148,15 @@ public class SearchActivity extends
     */
    @OnClick(R.id.iv_search)
    public void onSearch() {
-      getPresenter().onSearch(editText, tagGroup);
+      getPresenter().onSearch(editText, tagGroup, getSearchType());
+   }
+
+   private String getSearchType() {
+//      return (String) ((FilterRadioButton) search_type.getChildAt
+//            (search_type.getCheckedRadioButtonId())).getText();
+      Toast.makeText(this, search_type.getCheckedRadioButtonId() + "", Toast.LENGTH_SHORT).show();
+//      ((FilterRadioButton) search_type.getChildAt(1)).setChecked(true);
+      return "fsdaf";
    }
 
    @OnClick(R.id.iv_clean)
@@ -137,10 +164,18 @@ public class SearchActivity extends
       editText.setText("");
    }
 
-
    @Recite @OnEditorAction(R.id.et_search) boolean onEditor() {
       onSearch();
-      Toast.makeText(this, "1.在设置中可以控制默认的搜索结果排序2.将star数量和fork数量用rxjava2的zip方法整合为一个数3.在主界面添加以为taggroup形式显示的过滤", Toast.LENGTH_SHORT).show();
+      Toast.makeText(this, "0.将toolbar中坐边的图标在“x”和“+”之间转换.\n" +
+            "1.在设置中可以控制默认的搜索结果排序.\n2.将star数量和fork数量用rxjava2的zip" +
+            "方法整合为一个数.\n3.在主界面添加以为taggroup形式显示的过滤.\n4.将toolbar中向右的箭头改为中间是一个“搜”字的button" +
+            ".\n5.filterradiobutton中的文字没有居中", Toast
+            .LENGTH_SHORT).show();
       return true;
+   }
+
+   @Override public boolean onKey(View v, int keyCode, KeyEvent event) {
+      Toast.makeText(this, "keycode:" + keyCode, Toast.LENGTH_SHORT).show();
+      return false;
    }
 }
