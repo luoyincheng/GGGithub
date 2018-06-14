@@ -43,8 +43,9 @@ public class SearchReposPresenter extends BasePresenter<SearchReposContract.View
 
    @Override public void onSearch(@NonNull FontAutoCompleteEditText editText, TagGroup tagGroup,
                                   String searchType) {
+      sendToView(view->view.onToggleFilter(false));
       boolean isQualified = !InputHelper.isEmpty(editText) && InputHelper.toString(editText)
-            .length() > 1;
+            .length() > 1 && !InputHelper.isEmpty(searchType);
       editText.setError(isQualified ? null : editText.getResources().getString(R.string
             .search_key_size_required));
       if (isQualified) {
@@ -52,7 +53,7 @@ public class SearchReposPresenter extends BasePresenter<SearchReposContract.View
          tagGroup.appendInputTag(searchKey);
          editText.dismissDropDown();
          AppHelper.hideKeyboard(editText);
-         onCallApi(1, searchKey);
+         onCallApi(searchType, 1, searchKey);
       }
    }
 
@@ -76,8 +77,7 @@ public class SearchReposPresenter extends BasePresenter<SearchReposContract.View
       this.previousTotalItems = previousTotal;
    }
 
-   //real call
-   @Override public boolean onCallApi(int page, @Nullable String parameter) {
+   @Override public boolean onCallApi(String paramInPath, int page, @Nullable String parameter) {
       if (page == 1) {
          lastPage = Integer.MAX_VALUE;
          sendToView(new ViewAction<SearchReposContract.View>() {
@@ -95,7 +95,7 @@ public class SearchReposPresenter extends BasePresenter<SearchReposContract.View
          });
          return false;
       }
-      makeRestCall(ServiceProvider.getSearchService(false).searchRepositories(parameter, page),
+      makeRestCall(ServiceProvider.getSearchService(false).searchRepositories(paramInPath, parameter, page),
             new Consumer<Pageable<Repo>>() {
                @Override public void accept(Pageable<Repo> repoPageable) throws Exception {
                   lastPage = repoPageable.getLast();
@@ -117,19 +117,19 @@ public class SearchReposPresenter extends BasePresenter<SearchReposContract.View
    }
 
    @Override public void onFocusChange(View v, boolean hasFocus) {
-      if (v instanceof FontAutoCompleteEditText && !hasFocus)
-         sendToView(view -> view.onShowFilter());
+      if (v instanceof FontAutoCompleteEditText)
+         sendToView(view->view.onToggleFilter(hasFocus));
    }
 
    @Override public boolean onKey(View v, int keyCode, KeyEvent event) {
-      if (event.getAction() == KeyEvent.ACTION_DOWN) {
-         sendToView(new ViewAction<SearchReposContract.View>() {
-            @Override public void call(SearchReposContract.View view) {
-               view.onShowFilter();
-            }
-         });
-         return true;
-      }
+//      if (event.getAction() == KeyEvent.ACTION_DOWN) {
+//         sendToView(new ViewAction<SearchReposContract.View>() {
+//            @Override public void call(SearchReposContract.View view) {
+////               view.onToggleFilter(false);
+//            }
+//         });
+//         return true;
+//      }
       return false;
    }
 }

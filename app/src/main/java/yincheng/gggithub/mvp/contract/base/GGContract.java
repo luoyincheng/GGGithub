@@ -58,7 +58,7 @@ public interface GGContract {
 
       void setPreviousTotal(int previousTotal);
 
-      boolean onCallApi(int page, @Nullable P parameter);
+      boolean onCallApi(String paramInPath, int page, @Nullable P parameter);
    }
 
    interface onScrollTopListener {

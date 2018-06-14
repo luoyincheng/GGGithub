@@ -21,15 +21,29 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/iv_clean"
+                <FrameLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="5dp"
-                    android:padding="4dp"
-                    android:src="@drawable/ic_close_black"
-                    android:visibility="gone" />
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center">
+
+                    <ImageView
+                        android:id="@+id/iv_back"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:paddingStart="5dp"
+                        android:src="@drawable/ic_arrow_back_black_24dp" />
+
+                    <ImageView
+                        android:id="@+id/iv_clean"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:paddingStart="5dp"
+                        android:src="@drawable/ic_close_black"
+                        android:visibility="gone" />
+                </FrameLayout>
+
 
                 <yincheng.gggithub.view.widget.FontAutoCompleteEditText
                     android:id="@+id/et_search"
@@ -48,10 +62,9 @@
                 <ImageView
                     android:id="@+id/iv_search"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:layout_marginEnd="5dp"
-                    android:padding="4dp"
+                    android:paddingEnd="5dp"
                     android:src="@drawable/ic_arrow_forward_black_48dp" />
             </LinearLayout>
 
@@ -86,6 +99,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
+        app:circleColor="@color/blood_red"
         app:circleMargin="10dp"
         app:circleNum="4"
         app:circleRadius="10dp"

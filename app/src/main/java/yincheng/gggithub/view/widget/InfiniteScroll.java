@@ -63,5 +63,5 @@ public abstract class InfiniteScroll extends RecyclerView.OnScrollListener {
       this.loading = true;
    }
 
-   public abstract boolean onLoadMore(int page, int totalItemsCount);
+   public abstract boolean onLoadMore(String paramInPath, int page, int totalItemsCount);
 }

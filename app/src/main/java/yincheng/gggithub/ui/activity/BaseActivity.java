@@ -2,7 +2,6 @@ package yincheng.gggithub.ui.activity;
 
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
-import android.view.inputmethod.InputMethodManager;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
