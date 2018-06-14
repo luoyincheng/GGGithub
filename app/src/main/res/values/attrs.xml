@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="BossProgress">
-        <attr name="circleRadius" format="dimension" />
-        <attr name="circleMargin" format="dimension" />
-        <attr name="circleNum" format="integer" />
-        <attr name="circleColor" format="color" />
+    <declare-styleable name="ListenerBossProgress">
+        <attr name="ls_circleRadius" format="dimension" />
+        <attr name="ls_circleMargin" format="dimension" />
+        <attr name="ls_circleNum" format="integer" />
+        <attr name="ls_circleColor" format="color" />
+    </declare-styleable>
+    <declare-styleable name="TimerBossProgress">
+        <attr name="ti_circleRadius" format="dimension" />
+        <attr name="ti_circleMargin" format="dimension" />
+        <attr name="ti_circleNum" format="integer" />
+        <attr name="ti_circleColor" format="color" />
     </declare-styleable>
 
     <declare-styleable name="AutoLinearLayout">

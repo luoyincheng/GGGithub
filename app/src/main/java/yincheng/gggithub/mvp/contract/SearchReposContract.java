@@ -33,7 +33,7 @@ public interface SearchReposContract {
    }
 
    interface Presenter extends GGContract.GGPresenter, GGContract.paginationListener<String>,
-         android.view.View.OnFocusChangeListener, android.view.View.OnKeyListener {
+         android.view.View.OnFocusChangeListener {
       @NonNull ArrayList<Repo> getRepos();
 
       void onSearch(@NonNull FontAutoCompleteEditText editText, TagGroup tagGroup, String

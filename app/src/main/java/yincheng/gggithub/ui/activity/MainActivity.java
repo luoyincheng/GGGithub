@@ -3,6 +3,8 @@ package yincheng.gggithub.ui.activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -18,6 +20,7 @@ import yincheng.gggithub.library.bottomnavigation.TextBadgeItem;
 import yincheng.gggithub.mvp.contract.MainContract;
 import yincheng.gggithub.mvp.presenter.MainPresenter;
 import yincheng.gggithub.provider.annotation.Recite;
+import yincheng.gggithub.ui.fragment.PersonalFragment;
 
 import static yincheng.gggithub.library.bottomnavigation.ShapeBadgeItem.SHAPE_OVAL;
 
@@ -96,6 +99,22 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
     * 通过presenter来执行
     */
    @Override public void onNavigationSelected(int navigationType) {
-      Toast.makeText(this, "从presenter传回来的数据:" + navigationType, Toast.LENGTH_SHORT).show();
+      switch (navigationType) {
+         case 0:
+
+            break;
+         case 1:
+            break;
+         case 2:
+
+            break;
+         case 3:
+            Toast.makeText(this, "22222222", Toast.LENGTH_SHORT).show();
+            PersonalFragment personalFragment = new PersonalFragment();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.add(R.id.container_main,personalFragment);
+            fragmentTransaction.commit();
+            break;
+      }
    }
 }

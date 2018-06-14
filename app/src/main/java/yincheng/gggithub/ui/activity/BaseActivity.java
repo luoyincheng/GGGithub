@@ -7,7 +7,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import yincheng.gggithub.R;
 import yincheng.gggithub.mvp.contract.base.GGContract;
-import yincheng.gggithub.mvp.presenter.BasePresenter;
+import yincheng.gggithub.mvp.presenter.RxPresenter;
 import yincheng.gggithub.mvparchitecture.TiActivity;
 import yincheng.gggithub.ui.dialog.BuilderDialog;
 import yincheng.gggithub.ui.dialogfragment.DialogFragmentLogin;
@@ -16,7 +16,7 @@ import yincheng.gggithub.ui.dialogfragment.DialogFragmentLogin;
  * Created by yincheng on 2018/5/25/14:00.
  * github:luoyincheng
  */
-public abstract class BaseActivity<V extends GGContract.GGView, P extends BasePresenter<V>> extends
+public abstract class BaseActivity<V extends GGContract.GGView, P extends RxPresenter<V>> extends
       TiActivity<P, V> implements GGContract.GGView {
    private Unbinder unbinder;
    private DialogFragmentLogin dialogFragmentLogin;

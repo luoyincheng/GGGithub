@@ -15,7 +15,7 @@ import yincheng.gggithub.mvp.model.SearchedResult;
  * Created by yincheng on 2018/6/4/16:37.
  * github:luoyincheng
  */
-public class SearchPresenter extends BasePresenter<SearchContract.View> implements
+public class SearchPresenter extends RxPresenter<SearchContract.View> implements
       SearchContract.Presenter {
    private ArrayList<SearchedResult> results = new ArrayList<>();
 

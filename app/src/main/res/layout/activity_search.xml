@@ -94,15 +94,15 @@
 
     <include layout="@layout/search_filterview" />
 
-    <yincheng.gggithub.view.widget.BossProgress
+    <yincheng.gggithub.view.widget.TimerBossProgress
         android:id="@+id/bossProgress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:circleColor="@color/blood_red"
-        app:circleMargin="10dp"
-        app:circleNum="4"
-        app:circleRadius="10dp"
+        app:ti_circleColor="@color/blood_red"
+        app:ti_circleMargin="10dp"
+        app:ti_circleNum="4"
+        app:ti_circleRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

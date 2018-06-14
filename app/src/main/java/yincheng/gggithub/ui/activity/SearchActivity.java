@@ -28,9 +28,9 @@ import yincheng.gggithub.mvp.presenter.SearchReposPresenter;
 import yincheng.gggithub.provider.adapter.ReposAdapter;
 import yincheng.gggithub.provider.annotation.Recite;
 import yincheng.gggithub.provider.rest.OnLoadMore;
-import yincheng.gggithub.view.widget.BossProgress;
 import yincheng.gggithub.view.widget.FontAutoCompleteEditText;
 import yincheng.gggithub.view.widget.TagGroup;
+import yincheng.gggithub.view.widget.TimerBossProgress;
 
 /**
  * Created by yincheng on 2018/6/4/16:31.
@@ -46,7 +46,7 @@ public class SearchActivity extends
    @BindView(R.id.iv_search) ImageView ivSearch;
    @BindView(R.id.tag_hotkey) TagGroup tagGroup;
    @BindView(R.id.rv_search) DynamicRecyclerView recyclerView;
-   @BindView(R.id.bossProgress) BossProgress bossProgress;
+   @BindView(R.id.bossProgress) TimerBossProgress timerBossProgress;
    @BindView(R.id.filter_view) LinearLayout filterView;
    @BindView(R.id.search_type) RadioGroup search_type;
    @BindViews({R.id.filter_repository, R.id.filter_user, R.id.filter_issue, R.id.filter_code})
@@ -71,11 +71,11 @@ public class SearchActivity extends
 
    @Override public void showProgressView() {
       //不用默认的dialog来显示，因此不用super
-      bossProgress.setVisibility(View.VISIBLE);
+      timerBossProgress.setVisibility(View.VISIBLE);
    }
 
    @Override public void hideProgressView() {
-      bossProgress.setVisibility(View.GONE);
+      timerBossProgress.setVisibility(View.GONE);
    }
 
    @Override public void onSetTabConut(int count) {
@@ -83,7 +83,7 @@ public class SearchActivity extends
    }
 
    @Override public void onSetSearchQuery(@NonNull String query) {
-
+      Toast.makeText(this, "onSetSearchQuery:" + query, Toast.LENGTH_SHORT).show();
    }
 
    @NonNull @Override public OnLoadMore<String> getLoadMoreClass() {
@@ -112,7 +112,6 @@ public class SearchActivity extends
       adapter = new ReposAdapter(getPresenter().getRepos(), true, true);
       editText.setOnFocusChangeListener(getPresenter());
 //      editText.setOnKeyListener(getPresenter());
-      editText.setOnKeyListener(getPresenter());
 //      adapter.setListener(getPresenter());
    }
 
@@ -124,8 +123,6 @@ public class SearchActivity extends
       );
       recyclerView.setAdapter(adapter);
       recyclerView.setLayoutManager(new LinearLayoutManager(this));
-      if (editText.isFocused())
-         Toast.makeText(this, "输入框正在持有焦点", Toast.LENGTH_SHORT).show();
    }
 
    @Override protected int getLayoutId() {

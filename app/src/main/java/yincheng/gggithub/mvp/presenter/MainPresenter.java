@@ -8,7 +8,7 @@ import yincheng.gggithub.mvparchitecture.ViewAction;
  * Created by yincheng on 2018/5/25/14:09.
  * github:luoyincheng
  */
-public class MainPresenter extends BasePresenter<MainContract.View> implements
+public class MainPresenter extends RxPresenter<MainContract.View> implements
       MainContract.Presenter {
 
    @Override public void onTabSelected(int position) {

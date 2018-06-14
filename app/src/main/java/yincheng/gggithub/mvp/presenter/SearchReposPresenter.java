@@ -2,7 +2,6 @@ package yincheng.gggithub.mvp.presenter;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.view.KeyEvent;
 import android.view.View;
 
 import com.orhanobut.logger.Logger;
@@ -25,7 +24,7 @@ import yincheng.gggithub.view.widget.TagGroup;
  * Created by yincheng on 2018/6/4/17:13.
  * github:luoyincheng
  */
-public class SearchReposPresenter extends BasePresenter<SearchReposContract.View> implements
+public class SearchReposPresenter extends RxPresenter<SearchReposContract.View> implements
       SearchReposContract.Presenter {
    private ArrayList<Repo> repos = new ArrayList<>();
    private int page;
@@ -43,7 +42,7 @@ public class SearchReposPresenter extends BasePresenter<SearchReposContract.View
 
    @Override public void onSearch(@NonNull FontAutoCompleteEditText editText, TagGroup tagGroup,
                                   String searchType) {
-      sendToView(view->view.onToggleFilter(false));
+      sendToView(view -> view.onToggleFilter(false));
       boolean isQualified = !InputHelper.isEmpty(editText) && InputHelper.toString(editText)
             .length() > 1 && !InputHelper.isEmpty(searchType);
       editText.setError(isQualified ? null : editText.getResources().getString(R.string
@@ -95,7 +94,8 @@ public class SearchReposPresenter extends BasePresenter<SearchReposContract.View
          });
          return false;
       }
-      makeRestCall(ServiceProvider.getSearchService(false).searchRepositories(paramInPath, parameter, page),
+      makeRestCall(ServiceProvider.getSearchService(false).searchRepositories(paramInPath,
+            parameter, page),
             new Consumer<Pageable<Repo>>() {
                @Override public void accept(Pageable<Repo> repoPageable) throws Exception {
                   lastPage = repoPageable.getLast();
@@ -118,18 +118,6 @@ public class SearchReposPresenter extends BasePresenter<SearchReposContract.View
 
    @Override public void onFocusChange(View v, boolean hasFocus) {
       if (v instanceof FontAutoCompleteEditText)
-         sendToView(view->view.onToggleFilter(hasFocus));
-   }
-
-   @Override public boolean onKey(View v, int keyCode, KeyEvent event) {
-//      if (event.getAction() == KeyEvent.ACTION_DOWN) {
-//         sendToView(new ViewAction<SearchReposContract.View>() {
-//            @Override public void call(SearchReposContract.View view) {
-////               view.onToggleFilter(false);
-//            }
-//         });
-//         return true;
-//      }
-      return false;
+         sendToView(view -> view.onToggleFilter(hasFocus));
    }
 }

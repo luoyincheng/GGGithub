@@ -18,7 +18,7 @@ import yincheng.gggithub.mvp.model.AuthModel;
  * Date   : 2018:05:05 17:59
  * Github : yincheng.luo
  */
-public class LoginPresenter extends BasePresenter<LoginContract.View>
+public class LoginPresenter extends RxPresenter<LoginContract.View>
       implements LoginContract.Presenter {
 
    @NonNull @Override public Uri getAuthorizationUrl() {

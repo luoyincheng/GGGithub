@@ -31,11 +31,17 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="BossProgress_default">
-        <item name="circleRadius">15dp</item>
-        <item name="circleMargin">15dp</item>
-        <item name="circleNum">3</item>
-        <item name="circleColor">@color/colorPrimary</item>
+    <style name="ls_BossProgress_default">
+        <item name="ls_circleRadius">15dp</item>
+        <item name="ls_circleMargin">15dp</item>
+        <item name="ls_circleNum">3</item>
+        <item name="ls_circleColor">@color/colorPrimary</item>
+    </style>
+    <style name="ti_BossProgress_default">
+        <item name="ti_circleRadius">15dp</item>
+        <item name="ti_circleMargin">15dp</item>
+        <item name="ti_circleNum">3</item>
+        <item name="ti_circleColor">@color/colorPrimary</item>
     </style>
 
     <style name="dialog1" parent="android:Theme.Dialog">

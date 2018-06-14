@@ -16,14 +16,14 @@ import android.view.accessibility.AccessibilityEventSource;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import yincheng.gggithub.mvp.contract.base.GGContract;
-import yincheng.gggithub.mvp.presenter.BasePresenter;
+import yincheng.gggithub.mvp.presenter.RxPresenter;
 import yincheng.gggithub.mvparchitecture.TiDialogFragment;
 
 /**
  * Created by yincheng on 2018/5/25/10:57.
  * github:luoyincheng
  */
-public abstract class BaseDialogFragment<V extends GGContract.GGView, P extends BasePresenter<V>>
+public abstract class BaseDialogFragment<V extends GGContract.GGView, P extends RxPresenter<V>>
       extends
       TiDialogFragment<P, V> implements GGContract.GGView {
    protected GGContract.GGView ggView;

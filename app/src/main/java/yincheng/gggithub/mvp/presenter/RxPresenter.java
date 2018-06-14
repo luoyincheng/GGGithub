@@ -17,7 +17,7 @@ import yincheng.gggithub.mvparchitecture.rx2.RxGGPresenterDisposableManager;
  * Created by yincheng on 2018/5/24/10:23.
  * github:luoyincheng
  */
-public class BasePresenter<V extends GGContract.GGView> extends TiPresenter<V> implements
+public class RxPresenter<V extends GGContract.GGView> extends TiPresenter<V> implements
       GGContract.GGPresenter {
    private boolean apiCalled;
 
