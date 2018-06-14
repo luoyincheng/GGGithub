@@ -9,6 +9,7 @@ import android.os.Looper;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -89,14 +90,16 @@ public class TimerBossProgress extends ViewGroup {
    }
 
    private void calcelAllAnimation() {
+      for (int i = 0; i < getChildCount(); i++) {
+         getChildAt(i).clearAnimation();
+      }
       for (Animation animation : shrinkAnimationList)
          animation.cancel();
       for (Animation animation : expandAnimationList)
          animation.cancel();
-      for (AnimRunnable runnable : animRunnableList)
-         runnable = null;
-      for (Animation.AnimationListener listener : shrinkAnimationListenerList)
-         listener = null;
+//      animRunnableList.clear();
+//      shrinkAnimationListenerList.clear();
+
    }
 
    private void resetAllAnimation() {
@@ -105,7 +108,6 @@ public class TimerBossProgress extends ViewGroup {
       for (Animation animation : expandAnimationList)
          animation.reset();
    }
-
 
    private void init() {
       Logger.i("---");
@@ -189,12 +191,11 @@ public class TimerBossProgress extends ViewGroup {
       if (timer == null) timer = new Timer();
       if (timerTask == null) timerTask = new TimerTask() {
          @Override public void run() {//一次性发送四个viewAction到messageQueue中去
-            for (int i = 0; i < getChildCount(); i++) {
-               handler.postDelayed(animRunnableList.get(i), 150 * i);
-            }
+            for (int i = 0; i < getChildCount(); i++)
+               handler.postDelayed(animRunnableList.get(i), 2000 * i);
          }
       };
-      timer.schedule(timerTask, 0, 800);
+      timer.schedule(timerTask, 0, 8000);
    }
 
 
