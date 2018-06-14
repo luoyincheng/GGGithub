@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Toast;
 
 import com.orhanobut.logger.Logger;
 
@@ -73,7 +72,40 @@ public class TimerBossProgress extends ViewGroup {
       super.onVisibilityChanged(changedView, visibility);
       Logger.i("---");
       cancelTimer();
+      switch (visibility) {
+         case View.GONE:
+            Log.i("fadfasdf", "gone");
+            calcelAllAnimation();
+            break;
+         case View.VISIBLE:
+            Log.i("fadfasdf", "visible");
+            resetAllAnimation();
+            break;
+      }
+      /**
+       * If you cancel an animation manually, you must call
+       * {@link #reset()}before starting the animation again.
+       */
    }
+
+   private void calcelAllAnimation() {
+      for (Animation animation : shrinkAnimationList)
+         animation.cancel();
+      for (Animation animation : expandAnimationList)
+         animation.cancel();
+      for (AnimRunnable runnable : animRunnableList)
+         runnable = null;
+      for (Animation.AnimationListener listener : shrinkAnimationListenerList)
+         listener = null;
+   }
+
+   private void resetAllAnimation() {
+      for (Animation animation : shrinkAnimationList)
+         animation.reset();
+      for (Animation animation : expandAnimationList)
+         animation.reset();
+   }
+
 
    private void init() {
       Logger.i("---");
@@ -131,6 +163,7 @@ public class TimerBossProgress extends ViewGroup {
       super.onAttachedToWindow();
    }
 
+
    private void addChildren() {
       for (int i = 0; i < circleNum; i++) addView(new TimerBossProgress.RoundedView(this));
    }
@@ -148,6 +181,10 @@ public class TimerBossProgress extends ViewGroup {
    }
 
    private void startTimer() {
+      /**
+       * 每次onLayout()都会重新启动timer，导致动画有断层，因此在这里排除timer和timertask正在运行的
+       */
+      if (timer != null && timerTask != null) return;
       cancelTimer();
       if (timer == null) timer = new Timer();
       if (timerTask == null) timerTask = new TimerTask() {
@@ -160,6 +197,13 @@ public class TimerBossProgress extends ViewGroup {
       timer.schedule(timerTask, 0, 800);
    }
 
+
+   @Override protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+      super.onSizeChanged(w, h, oldw, oldh);
+      Logger.i("---");
+   }
+
+   //**************************************************************************
    private class AnimRunnable implements Runnable {
       private int viewIndex;
 
@@ -178,7 +222,11 @@ public class TimerBossProgress extends ViewGroup {
          timer = null;
       }
       if (timerTask != null) {
-         timerTask.cancel();
+         if (timerTask.cancel()) {
+            Log.i("quxiao", "取消成功timertask");
+         } else {
+            Log.i("quxiao", "取消失败timertask");
+         }
          timerTask = null;
       }
    }
