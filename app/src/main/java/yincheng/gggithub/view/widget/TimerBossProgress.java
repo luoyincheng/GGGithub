@@ -75,7 +75,7 @@ public class TimerBossProgress extends ViewGroup {
       switch (visibility) {
          case View.GONE:
             Log.i("fadfasdf", "gone");
-            calcelAllAnimation();
+            cancelAllAnimation();
             break;
          case View.VISIBLE:
             Log.i("fadfasdf", "visible");
@@ -88,17 +88,16 @@ public class TimerBossProgress extends ViewGroup {
        */
    }
 
-   private void calcelAllAnimation() {
-      for (int i = 0; i < getChildCount(); i++) {
-         getChildAt(i).clearAnimation();
-      }
-      for (Animation animation : shrinkAnimationList)
-         animation.cancel();
-      for (Animation animation : expandAnimationList)
-         animation.cancel();
+   private void cancelAllAnimation() {
+//      for (int i = 0; i < getChildCount(); i++) {
+//         getChildAt(i).clearAnimation();
+//      }
+//      for (Animation animation : shrinkAnimationList)
+//         animation.cancel();
+//      for (Animation animation : expandAnimationList)
+//         animation.cancel();
 //      animRunnableList.clear();
 //      shrinkAnimationListenerList.clear();
-
    }
 
    private void resetAllAnimation() {
@@ -191,10 +190,10 @@ public class TimerBossProgress extends ViewGroup {
       if (timerTask == null) timerTask = new TimerTask() {
          @Override public void run() {//一次性发送四个viewAction到messageQueue中去
             for (int i = 0; i < getChildCount(); i++)
-               handler.postDelayed(animRunnableList.get(i), 2000 * i);
+               handler.postDelayed(animRunnableList.get(i), 150 * i);
          }
       };
-      timer.schedule(timerTask, 0, 8000);
+      timer.schedule(timerTask, 0, 800);
    }
 
 

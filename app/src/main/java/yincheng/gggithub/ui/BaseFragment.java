@@ -33,8 +33,11 @@ public abstract class BaseFragment<V extends GGContract.GGView, P extends RxPres
          unbinder = ButterKnife.bind(this, view);
          return view;
       }
+      initData();
       return super.onCreateView(inflater, container, savedInstanceState);
    }
+
+   protected abstract void initData();
 
    public abstract int getLayoutId();
 

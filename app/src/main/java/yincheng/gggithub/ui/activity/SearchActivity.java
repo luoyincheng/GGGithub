@@ -13,7 +13,11 @@ import android.widget.Toast;
 
 import com.orhanobut.logger.Logger;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.BindViews;
@@ -21,10 +25,12 @@ import butterknife.OnClick;
 import butterknife.OnEditorAction;
 import butterknife.OnTextChanged;
 import yincheng.gggithub.R;
+import yincheng.gggithub.helper.InputHelper;
 import yincheng.gggithub.library.recyclerview.DynamicRecyclerView;
 import yincheng.gggithub.mvp.contract.SearchReposContract;
 import yincheng.gggithub.mvp.model.Repo;
 import yincheng.gggithub.mvp.presenter.SearchReposPresenter;
+import yincheng.gggithub.mvparchitecture.ViewAction;
 import yincheng.gggithub.provider.adapter.ReposAdapter;
 import yincheng.gggithub.provider.annotation.Recite;
 import yincheng.gggithub.provider.rest.OnLoadMore;
@@ -102,7 +108,13 @@ public class SearchActivity extends
    }
 
    @Override public void onRefresh() {
-      Toast.makeText(this, "swiperefresh", Toast.LENGTH_SHORT).show();
+      if(InputHelper.isEmpty(editText)) editText.setText("wode");
+      onSearch();
+      handler.postDelayed(new Runnable() {
+         @Override public void run() {
+            swipeRefreshLayout.setRefreshing(false);
+         }
+      }, 5000);
    }
 
    @Override public void onClick(View v) {

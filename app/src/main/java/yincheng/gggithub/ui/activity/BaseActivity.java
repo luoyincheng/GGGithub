@@ -1,6 +1,7 @@
 package yincheng.gggithub.ui.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.LayoutRes;
 
 import butterknife.ButterKnife;
@@ -18,6 +19,7 @@ import yincheng.gggithub.ui.dialogfragment.DialogFragmentLogin;
  */
 public abstract class BaseActivity<V extends GGContract.GGView, P extends RxPresenter<V>> extends
       TiActivity<P, V> implements GGContract.GGView {
+   protected Handler handler;
    private Unbinder unbinder;
    private DialogFragmentLogin dialogFragmentLogin;
    private BuilderDialog progressDialog;
@@ -28,6 +30,7 @@ public abstract class BaseActivity<V extends GGContract.GGView, P extends RxPres
          setContentView(getLayoutId());
          unbinder = ButterKnife.bind(this);
       }
+      handler = new Handler(getMainLooper());
       initData();
       initView();
    }

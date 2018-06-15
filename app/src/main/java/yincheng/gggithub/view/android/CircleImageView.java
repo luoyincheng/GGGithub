@@ -9,11 +9,16 @@ import android.graphics.RadialGradient;
 import android.graphics.Shader;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.Animation;
 import android.widget.ImageView;
+
+import yincheng.gggithub.R;
 /**
  * Mail   : luoyincheng@gmail.com
  * Date   : 2018:06:15 7:59
@@ -26,7 +31,6 @@ import android.widget.ImageView;
  * platforms.
  */
 class CircleImageView extends ImageView {
-
    private static final int KEY_SHADOW_COLOR = 0x1E000000;
    private static final int FILL_SHADOW_COLOR = 0x3D000000;
    // PX
@@ -37,6 +41,32 @@ class CircleImageView extends ImageView {
 
    private Animation.AnimationListener mListener;
    int mShadowRadius;
+
+   public CircleImageView(Context context, @Nullable AttributeSet attrs) {
+      super(context, attrs);
+      final float density = getContext().getResources().getDisplayMetrics().density;
+      final int shadowYOffset = (int) (density * Y_OFFSET);
+      final int shadowXOffset = (int) (density * X_OFFSET);
+
+      mShadowRadius = (int) (density * SHADOW_RADIUS);
+
+      ShapeDrawable circle;
+      if (elevationSupported()) {
+         circle = new ShapeDrawable(new OvalShape());
+         ViewCompat.setElevation(this, SHADOW_ELEVATION * density);
+      } else {
+         OvalShape oval = new CircleImageView.OvalShadow(mShadowRadius);
+         circle = new ShapeDrawable(oval);
+         setLayerType(View.LAYER_TYPE_SOFTWARE, circle.getPaint());
+         circle.getPaint().setShadowLayer(mShadowRadius, shadowXOffset, shadowYOffset,
+               KEY_SHADOW_COLOR);
+         final int padding = mShadowRadius;
+         // set padding so the inner image sits correctly within the shadow.
+         setPadding(padding, padding, padding, padding);
+      }
+      circle.getPaint().setColor(getResources().getColor(R.color.colorAccent));
+      ViewCompat.setBackground(this, circle);
+   }
 
    CircleImageView(Context context, int color) {
       super(context);

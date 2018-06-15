@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -71,12 +72,6 @@
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-    <yincheng.gggithub.view.android.SwipeRefreshLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </yincheng.gggithub.view.android.SwipeRefreshLayout>
-
     <yincheng.gggithub.view.widget.TagGroup
         android:id="@+id/tag_hotkey"
         android:layout_width="match_parent"
@@ -110,14 +105,15 @@
         android:id="@+id/bossProgress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="?android:actionBarSize"
+        android:layout_marginTop="?attr/actionBarSize"
         android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tag_hotkey"
+        app:layout_constraintTop_toBottomOf="@+id/appbar"
         app:ti_circleColor="@color/blood_red"
         app:ti_circleMargin="10dp"
         app:ti_circleNum="4"
-        app:ti_circleRadius="10dp" />
+        app:ti_circleRadius="10dp"
+        tools:visibility="visible" />
 
 </android.support.constraint.ConstraintLayout>

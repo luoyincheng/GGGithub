@@ -28,7 +28,6 @@ import android.view.animation.Transformation;
 import android.widget.AbsListView;
 import android.widget.ListView;
 
-
 /**
  * The SwipeRefreshLayout should be used whenever the user can refresh the
  * contents of a view via a vertical swipe gesture. The activity that
@@ -49,12 +48,6 @@ import android.widget.ListView;
  * provide accessibility events; instead, a menu item must be provided to allow
  * refresh of the content wherever this gesture is used.
  * </p>
- */
-
-/**
- * Mail   : luoyincheng@gmail.com
- * Date   : 2018:06:15 7:57
- * Github : yincheng.luo
  */
 public class SwipeRefreshLayout extends ViewGroup implements NestedScrollingParent,
       NestedScrollingChild {
@@ -658,7 +651,8 @@ public class SwipeRefreshLayout extends ViewGroup implements NestedScrollingPare
     *
     * @param callback Callback that should be called when canChildScrollUp() is called.
     */
-   public void setOnChildScrollUpCallback(@Nullable SwipeRefreshLayout.OnChildScrollUpCallback callback) {
+   public void setOnChildScrollUpCallback(@Nullable SwipeRefreshLayout.OnChildScrollUpCallback
+                                                callback) {
       mChildScrollUpCallback = callback;
    }
 
@@ -670,17 +664,20 @@ public class SwipeRefreshLayout extends ViewGroup implements NestedScrollingPare
       int pointerIndex;
 
       if (mReturningToStart && action == MotionEvent.ACTION_DOWN) {
+         Log.i("onInterceptTouchEvent", "first if");
          mReturningToStart = false;
       }
 
       if (!isEnabled() || mReturningToStart || canChildScrollUp()
             || mRefreshing || mNestedScrollInProgress) {
          // Fail fast if we're not in a state where a swipe is possible
+         Log.i("onInterceptTouchEvent", "second if");
          return false;
       }
 
       switch (action) {
          case MotionEvent.ACTION_DOWN:
+            Log.i("onInterceptTouchEvent", "ACTION_DOWN");
             setTargetOffsetTopAndBottom(mOriginalOffsetTop - mCircleView.getTop());
             mActivePointerId = ev.getPointerId(0);
             mIsBeingDragged = false;
@@ -693,6 +690,7 @@ public class SwipeRefreshLayout extends ViewGroup implements NestedScrollingPare
             break;
 
          case MotionEvent.ACTION_MOVE:
+            Log.i("onInterceptTouchEvent", "ACTION_MOVE");
             if (mActivePointerId == INVALID_POINTER) {
                Log.e(LOG_TAG, "Got ACTION_MOVE event but don't have an active pointer id.");
                return false;
@@ -707,16 +705,17 @@ public class SwipeRefreshLayout extends ViewGroup implements NestedScrollingPare
             break;
 
          case MotionEvent.ACTION_POINTER_UP:
+            Log.i("onInterceptTouchEvent", "ACTION_POINTER_UP");
             onSecondaryPointerUp(ev);
             break;
 
          case MotionEvent.ACTION_UP:
          case MotionEvent.ACTION_CANCEL:
+            Log.i("onInterceptTouchEvent", "ACTION_UP | ACTION_CANCEL");
             mIsBeingDragged = false;
             mActivePointerId = INVALID_POINTER;
             break;
       }
-
       return mIsBeingDragged;
    }
 
@@ -971,26 +970,31 @@ public class SwipeRefreshLayout extends ViewGroup implements NestedScrollingPare
 
    @Override
    public boolean onTouchEvent(MotionEvent ev) {
+      Log.i("onTouchEvent", "event in");
       final int action = ev.getActionMasked();
       int pointerIndex = -1;
 
       if (mReturningToStart && action == MotionEvent.ACTION_DOWN) {
          mReturningToStart = false;
+         Log.i("onTouchEvent", "first if");
       }
 
       if (!isEnabled() || mReturningToStart || canChildScrollUp()
             || mRefreshing || mNestedScrollInProgress) {
          // Fail fast if we're not in a state where a swipe is possible
+         Log.i("onTouchEvent", "second if");
          return false;
       }
 
       switch (action) {
          case MotionEvent.ACTION_DOWN:
+            Log.i("onTouchEvent", "ACTION_DOWN");
             mActivePointerId = ev.getPointerId(0);
             mIsBeingDragged = false;
             break;
 
          case MotionEvent.ACTION_MOVE: {
+            Log.i("onTouchEvent", "ACTION_MOVE");
             pointerIndex = ev.findPointerIndex(mActivePointerId);
             if (pointerIndex < 0) {
                Log.e(LOG_TAG, "Got ACTION_MOVE event but have an invalid active pointer id.");
@@ -1011,6 +1015,7 @@ public class SwipeRefreshLayout extends ViewGroup implements NestedScrollingPare
             break;
          }
          case MotionEvent.ACTION_POINTER_DOWN: {
+            Log.i("onTouchEvent", "ACTION_POINTER_DOWN");
             pointerIndex = ev.getActionIndex();
             if (pointerIndex < 0) {
                Log.e(LOG_TAG,
@@ -1022,10 +1027,12 @@ public class SwipeRefreshLayout extends ViewGroup implements NestedScrollingPare
          }
 
          case MotionEvent.ACTION_POINTER_UP:
+            Log.i("onTouchEvent", "ACTION_POINTER_UP");
             onSecondaryPointerUp(ev);
             break;
 
          case MotionEvent.ACTION_UP: {
+            Log.i("onTouchEvent", "ACTION_UP");
             pointerIndex = ev.findPointerIndex(mActivePointerId);
             if (pointerIndex < 0) {
                Log.e(LOG_TAG, "Got ACTION_UP event but don't have an active pointer id.");
@@ -1042,9 +1049,9 @@ public class SwipeRefreshLayout extends ViewGroup implements NestedScrollingPare
             return false;
          }
          case MotionEvent.ACTION_CANCEL:
+            Log.i("onTouchEvent", "ACTION_CANCEL");
             return false;
       }
-
       return true;
    }
 
@@ -1181,3 +1188,4 @@ public class SwipeRefreshLayout extends ViewGroup implements NestedScrollingPare
       boolean canChildScrollUp(@NonNull SwipeRefreshLayout parent, @Nullable View child);
    }
 }
+
