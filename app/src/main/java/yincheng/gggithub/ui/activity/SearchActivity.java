@@ -28,6 +28,7 @@ import yincheng.gggithub.mvp.presenter.SearchReposPresenter;
 import yincheng.gggithub.provider.adapter.ReposAdapter;
 import yincheng.gggithub.provider.annotation.Recite;
 import yincheng.gggithub.provider.rest.OnLoadMore;
+import yincheng.gggithub.view.android.SwipeRefreshLayout;
 import yincheng.gggithub.view.widget.FontAutoCompleteEditText;
 import yincheng.gggithub.view.widget.TagGroup;
 import yincheng.gggithub.view.widget.TimerBossProgress;
@@ -40,6 +41,7 @@ public class SearchActivity extends
       BaseActivity<SearchReposContract.View, SearchReposPresenter> implements
       SearchReposContract.View {
    @BindView(android.R.id.content) View contentView;
+   @BindView(R.id.srl_search) SwipeRefreshLayout swipeRefreshLayout;
    @BindView(R.id.et_search) FontAutoCompleteEditText editText;
    @BindView(R.id.iv_back) ImageView iv_back;
    @BindView(R.id.iv_clean) ImageView ivClean;
@@ -100,7 +102,7 @@ public class SearchActivity extends
    }
 
    @Override public void onRefresh() {
-
+      Toast.makeText(this, "swiperefresh", Toast.LENGTH_SHORT).show();
    }
 
    @Override public void onClick(View v) {
@@ -111,6 +113,7 @@ public class SearchActivity extends
 //      filterResults = new boolean[filterRadioButtons.size()];
       adapter = new ReposAdapter(getPresenter().getRepos(), true, true);
       editText.setOnFocusChangeListener(getPresenter());
+      swipeRefreshLayout.setOnRefreshListener(this);
 //      editText.setOnKeyListener(getPresenter());
 //      adapter.setListener(getPresenter());
    }

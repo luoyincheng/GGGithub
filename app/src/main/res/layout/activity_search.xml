@@ -71,6 +71,11 @@
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
+    <yincheng.gggithub.view.android.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </yincheng.gggithub.view.android.SwipeRefreshLayout>
 
     <yincheng.gggithub.view.widget.TagGroup
         android:id="@+id/tag_hotkey"
@@ -80,16 +85,24 @@
         android:layout_marginStart="@dimen/bottom_navigation_elevation"
         android:layout_marginTop="@dimen/bottom_navigation_elevation"
         app:atg_textSize="17sp"
-        app:layout_constraintBottom_toTopOf="@+id/rv_search"
+        app:layout_constraintBottom_toTopOf="@+id/srl_search"
         app:layout_constraintTop_toBottomOf="@+id/appbar" />
 
-    <yincheng.gggithub.library.recyclerview.DynamicRecyclerView
-        android:id="@+id/rv_search"
+    <yincheng.gggithub.view.android.SwipeRefreshLayout
+        android:id="@+id/srl_search"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/bottom_navigation_elevation"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tag_hotkey" />
+        app:layout_constraintTop_toBottomOf="@+id/tag_hotkey">
+
+        <yincheng.gggithub.library.recyclerview.DynamicRecyclerView
+            android:id="@+id/rv_search"
+            android:layout_width="match_parent"
+            android:layout_height="0dp" />
+
+    </yincheng.gggithub.view.android.SwipeRefreshLayout>
+
 
     <include layout="@layout/search_filterview" />
 

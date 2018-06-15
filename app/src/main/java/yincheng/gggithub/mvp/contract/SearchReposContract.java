@@ -2,7 +2,6 @@ package yincheng.gggithub.mvp.contract;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +9,7 @@ import java.util.List;
 import yincheng.gggithub.mvp.contract.base.GGContract;
 import yincheng.gggithub.mvp.model.Repo;
 import yincheng.gggithub.provider.rest.OnLoadMore;
+import yincheng.gggithub.view.android.SwipeRefreshLayout;
 import yincheng.gggithub.view.widget.FontAutoCompleteEditText;
 import yincheng.gggithub.view.widget.TagGroup;
 
