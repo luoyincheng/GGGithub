@@ -3,7 +3,9 @@ package yincheng.gggithub.ui.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import butterknife.BindView;
@@ -21,11 +23,22 @@ public class PersonalFragment extends
       BaseFragment<PersonalContract.View, PersonalPresenter> implements PersonalContract.View {
 
    @BindView(R.id.refresh) SwipeRefreshLayout swipeRefreshLayout;
+   @BindView(R.id.image_saber) ImageView image_saber;
 
    @Override protected void initData() {
    }
 
    @Override public int getLayoutId() {
+      int drawable_width = getResources().getDrawable(R.drawable.saber).getIntrinsicWidth();
+      int drawable_height = getResources().getDrawable(R.drawable.saber).getIntrinsicHeight();
+      int mipmap_width = getResources().getDrawable(R.mipmap.saber).getIntrinsicWidth();
+      int mipmap_height = getResources().getDrawable(R.mipmap.saber).getIntrinsicHeight();
+      Log.i("saber_intrinsic:",
+            "drawable_width" + ":" + drawable_width +
+                  "drawable_height" + ":" + drawable_height +
+                  "mipmap_width" + ":" + mipmap_width +
+                  "mipmap_height" + ":" + mipmap_height
+      );
       return R.layout.fragment_personal;
    }
 

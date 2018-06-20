@@ -1,5 +1,6 @@
 package yincheng.gggithub.view.widget;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -23,12 +24,14 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewOutlineProvider;
 import android.widget.ImageView;
 
 import yincheng.gggithub.R;
+import yincheng.gggithub.mvparchitecture.TiLog;
 
 /**
  * Created by yincheng on 2018/6/15/18:43.
@@ -43,7 +46,7 @@ public class CircleImageView extends ImageView {
 
    private static final int DEFAULT_BORDER_WIDTH = 0;
    private static final int DEFAULT_BORDER_COLOR = Color.BLACK;
-   private static final int DEFAULT_CIRCLE_BACKGROUND_COLOR = Color.TRANSPARENT;
+   private static final int DEFAULT_CIRCLE_BACKGROUND_COLOR = Color.BLACK;
    private static final boolean DEFAULT_BORDER_OVERLAY = false;
 
    private final RectF mDrawableRect = new RectF();
@@ -71,7 +74,8 @@ public class CircleImageView extends ImageView {
    private boolean mReady;
    private boolean mSetupPending;
    private boolean mBorderOverlay;
-   private boolean mDisableCircularTransformation;
+   //边界是绘制在图片之上还是将图片包含在内，如果为之上，就会导致图片只会显示不全，如果图片被包含在内，就会导致图片显示完全，布片不会被Border覆盖
+   private boolean mDisableCircularTransformation;//是否禁止图片的圆形化，默认false
 
    public CircleImageView(Context context) {
       super(context);
@@ -86,26 +90,21 @@ public class CircleImageView extends ImageView {
    public CircleImageView(Context context, AttributeSet attrs, int defStyle) {
       super(context, attrs, defStyle);
 
-      TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CircleImageView, defStyle, 0);
+      TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CircleImageView, defStyle,
+            0);
 
-      mBorderWidth = a.getDimensionPixelSize(R.styleable.CircleImageView_civ_border_width, DEFAULT_BORDER_WIDTH);
+      mBorderWidth = a.getDimensionPixelSize(R.styleable.CircleImageView_civ_border_width,
+            DEFAULT_BORDER_WIDTH);
       mBorderColor = a.getColor(R.styleable.CircleImageView_civ_border_color, DEFAULT_BORDER_COLOR);
-      mBorderOverlay = a.getBoolean(R.styleable.CircleImageView_civ_border_overlay, DEFAULT_BORDER_OVERLAY);
-
-      // Look for deprecated civ_fill_color if civ_circle_background_color is not set
-      if (a.hasValue(R.styleable.CircleImageView_civ_circle_background_color)) {
-         mCircleBackgroundColor = a.getColor(R.styleable.CircleImageView_civ_circle_background_color,
-               DEFAULT_CIRCLE_BACKGROUND_COLOR);
-      } else if (a.hasValue(R.styleable.CircleImageView_civ_fill_color)) {
-         mCircleBackgroundColor = a.getColor(R.styleable.CircleImageView_civ_fill_color,
-               DEFAULT_CIRCLE_BACKGROUND_COLOR);
-      }
-
+      mBorderOverlay = a.getBoolean(R.styleable.CircleImageView_civ_border_overlay,
+            DEFAULT_BORDER_OVERLAY);
+      mCircleBackgroundColor = a.getColor(R.styleable.CircleImageView_civ_circle_background_color,
+            DEFAULT_CIRCLE_BACKGROUND_COLOR);
       a.recycle();
-
       init();
    }
 
+   @SuppressLint("ObsoleteSdkInt")
    private void init() {
       super.setScaleType(SCALE_TYPE);
       mReady = true;
@@ -128,12 +127,26 @@ public class CircleImageView extends ImageView {
    @Override
    public void setScaleType(ScaleType scaleType) {
       if (scaleType != SCALE_TYPE) {
-         throw new IllegalArgumentException(String.format("ScaleType %s not supported.", scaleType));
+         throw new IllegalArgumentException(String.format("ScaleType %s not supported.",
+               scaleType));
       }
    }
 
+   /**
+    * Set this to true if you want the ImageView to adjust its bounds
+    * to preserve(保存) the aspect ratio(宽高比) of its drawable.
+    * <p>
+    * <p><strong>Note:</strong> If the application targets API level 17 or lower,
+    * adjustViewBounds will allow the drawable to shrink the view bounds, but not grow
+    * to fill available measured space in all cases. This is for compatibility with
+    * legacy {@link android.view.View.MeasureSpec MeasureSpec} and
+    * {@link android.widget.RelativeLayout RelativeLayout} behavior.</p>
+    *
+    * @param adjustViewBounds Whether to adjust the bounds of this view
+    *                         to preserve the original aspect ratio of the drawable.
+    */
    @Override
-   public void setAdjustViewBounds(boolean adjustViewBounds) {
+   public void setAdjustViewBounds(boolean adjustViewBounds) {//是否保存图片原始宽高比
       if (adjustViewBounds) {
          throw new IllegalArgumentException("adjustViewBounds not supported.");
       }
@@ -141,21 +154,25 @@ public class CircleImageView extends ImageView {
 
    @Override
    protected void onDraw(Canvas canvas) {
+      Log.i("CircleImageView", "onDraw()");
       if (mDisableCircularTransformation) {
          super.onDraw(canvas);
          return;
       }
 
-      if (mBitmap == null) {
-         return;
-      }
+      if (mBitmap == null) return;
 
       if (mCircleBackgroundColor != Color.TRANSPARENT) {
-         canvas.drawCircle(mDrawableRect.centerX(), mDrawableRect.centerY(), mDrawableRadius, mCircleBackgroundPaint);
+         canvas.drawCircle(mDrawableRect.centerX(), mDrawableRect.centerY(), mDrawableRadius,
+               mCircleBackgroundPaint);
       }
-      canvas.drawCircle(mDrawableRect.centerX(), mDrawableRect.centerY(), mDrawableRadius, mBitmapPaint);
+      //绘制圆形Bitmap
+      canvas.drawCircle(mDrawableRect.centerX(), mDrawableRect.centerY(), mDrawableRadius,
+            mBitmapPaint);
+      //绘制边界
       if (mBorderWidth > 0) {
-         canvas.drawCircle(mBorderRect.centerX(), mBorderRect.centerY(), mBorderRadius, mBorderPaint);
+         canvas.drawCircle(mBorderRect.centerX(), mBorderRect.centerY(), mBorderRadius,
+               mBorderPaint);
       }
    }
 
@@ -221,7 +238,6 @@ public class CircleImageView extends ImageView {
     * Return the color drawn behind the circle-shaped drawable.
     *
     * @return The color drawn behind the drawable
-    *
     * @deprecated Use {@link #getCircleBackgroundColor()} instead.
     */
    @Deprecated
@@ -234,7 +250,6 @@ public class CircleImageView extends ImageView {
     * this has no effect if the drawable is opaque or no drawable is set.
     *
     * @param fillColor The color to be drawn behind the drawable
-    *
     * @deprecated Use {@link #setCircleBackgroundColor(int)} instead.
     */
    @Deprecated
@@ -248,7 +263,6 @@ public class CircleImageView extends ImageView {
     *
     * @param fillColorRes The color resource to be resolved to a color and
     *                     drawn behind the drawable
-    *
     * @deprecated Use {@link #setCircleBackgroundColorResource(int)} instead.
     */
    @Deprecated
@@ -292,31 +306,32 @@ public class CircleImageView extends ImageView {
       }
 
       mDisableCircularTransformation = disableCircularTransformation;
-      initializeBitmap();
+      initializeBitmap(316);
    }
 
    @Override
    public void setImageBitmap(Bitmap bm) {
       super.setImageBitmap(bm);
-      initializeBitmap();
+      initializeBitmap(322);
    }
 
    @Override
    public void setImageDrawable(Drawable drawable) {
       super.setImageDrawable(drawable);
-      initializeBitmap();
+      initializeBitmap(328);
    }
 
    @Override
    public void setImageResource(@DrawableRes int resId) {
+      Log.i("CircleImageView", "resId:" + resId);
       super.setImageResource(resId);
-      initializeBitmap();
+      initializeBitmap(334);
    }
 
    @Override
    public void setImageURI(Uri uri) {
       super.setImageURI(uri);
-      initializeBitmap();
+      initializeBitmap(340);
    }
 
    @Override
@@ -354,9 +369,11 @@ public class CircleImageView extends ImageView {
          Bitmap bitmap;
 
          if (drawable instanceof ColorDrawable) {
-            bitmap = Bitmap.createBitmap(COLORDRAWABLE_DIMENSION, COLORDRAWABLE_DIMENSION, BITMAP_CONFIG);
+            bitmap = Bitmap.createBitmap(COLORDRAWABLE_DIMENSION, COLORDRAWABLE_DIMENSION,
+                  BITMAP_CONFIG);
          } else {
-            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), BITMAP_CONFIG);
+            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable
+                  .getIntrinsicHeight(), BITMAP_CONFIG);
          }
 
          Canvas canvas = new Canvas(bitmap);
@@ -369,7 +386,8 @@ public class CircleImageView extends ImageView {
       }
    }
 
-   private void initializeBitmap() {
+   private void initializeBitmap(int line) {
+      Log.i("CircleImageView", "initializeBitmap() in line :" + line);
       if (mDisableCircularTransformation) {
          mBitmap = null;
       } else {
@@ -389,10 +407,16 @@ public class CircleImageView extends ImageView {
       }
 
       if (mBitmap == null) {
-         invalidate();
+         invalidate();// TODO: 2018/6/20 为空也重绘？？
          return;
       }
+//      new Thread(new Runnable() {
+//         @Override public void run() {
+//            postInvalidate();
+//         }
+//      });
 
+      // TODO: 2018/6/20 to un
       mBitmapShader = new BitmapShader(mBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
 
       mBitmapPaint.setAntiAlias(true);
@@ -410,22 +434,26 @@ public class CircleImageView extends ImageView {
       mBitmapHeight = mBitmap.getHeight();
       mBitmapWidth = mBitmap.getWidth();
 
+//    首先设置外部Rect
       mBorderRect.set(calculateBounds());
-      mBorderRadius = Math.min((mBorderRect.height() - mBorderWidth) / 2.0f, (mBorderRect.width() - mBorderWidth) / 2.0f);
+      mBorderRadius = Math.min((mBorderRect.height() - mBorderWidth) / 2.0f, (mBorderRect.width()
+            - mBorderWidth) / 2.0f);
 
+//    默认内部Rect和外部Rect大小是一样的，这样会导致Border绘制以后会遮挡掉内部真实图片的一部分(边界部分)
       mDrawableRect.set(mBorderRect);
+//    mBorderOverlay为false时，也就是Border会覆盖在图片上方，需要将图片的显示区域缩小
       if (!mBorderOverlay && mBorderWidth > 0) {
          mDrawableRect.inset(mBorderWidth - 1.0f, mBorderWidth - 1.0f);
       }
       mDrawableRadius = Math.min(mDrawableRect.height() / 2.0f, mDrawableRect.width() / 2.0f);
-
       applyColorFilter();
       updateShaderMatrix();
       invalidate();
    }
 
+   //获取一个长宽相等的RectF
    private RectF calculateBounds() {
-      int availableWidth  = getWidth() - getPaddingLeft() - getPaddingRight();
+      int availableWidth = getWidth() - getPaddingLeft() - getPaddingRight();
       int availableHeight = getHeight() - getPaddingTop() - getPaddingBottom();
 
       int sideLength = Math.min(availableWidth, availableHeight);
@@ -452,7 +480,8 @@ public class CircleImageView extends ImageView {
       }
 
       mShaderMatrix.setScale(scale, scale);
-      mShaderMatrix.postTranslate((int) (dx + 0.5f) + mDrawableRect.left, (int) (dy + 0.5f) + mDrawableRect.top);
+      mShaderMatrix.postTranslate((int) (dx + 0.5f) + mDrawableRect.left, (int) (dy + 0.5f) +
+            mDrawableRect.top);
 
       mBitmapShader.setLocalMatrix(mShaderMatrix);
    }
@@ -463,7 +492,8 @@ public class CircleImageView extends ImageView {
    }
 
    private boolean inTouchableArea(float x, float y) {
-      return Math.pow(x - mBorderRect.centerX(), 2) + Math.pow(y - mBorderRect.centerY(), 2) <= Math.pow(mBorderRadius, 2);
+      return Math.pow(x - mBorderRect.centerX(), 2) + Math.pow(y - mBorderRect.centerY(), 2) <=
+            Math.pow(mBorderRadius, 2);
    }
 
    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -475,7 +505,5 @@ public class CircleImageView extends ImageView {
          mBorderRect.roundOut(bounds);
          outline.setRoundRect(bounds, bounds.width() / 2.0f);
       }
-
    }
-
 }

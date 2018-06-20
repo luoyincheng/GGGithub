@@ -18,9 +18,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:padding="@dimen/dimen_10dp"
                 android:src="@mipmap/saber"
                 app:civ_border_color="@color/colorAccent"
-                app:civ_border_width="2dp" />
+                app:civ_border_overlay="false"
+                app:civ_border_width="10dp" />
+
+            <ImageView
+                android:id="@+id/image_saber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/saber" />
         </LinearLayout>
     </yincheng.gggithub.view.android.SwipeRefreshLayout>
 
