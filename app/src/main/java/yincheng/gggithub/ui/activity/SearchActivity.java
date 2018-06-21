@@ -123,7 +123,7 @@ public class SearchActivity extends
 
    @Recite @Override protected void initData() {
 //      filterResults = new boolean[filterRadioButtons.size()];
-      adapter = new ReposAdapter(getPresenter().getRepos(), true, true);
+      adapter = new ReposAdapter(getPresenter().getRepoList(), true, true);
       editText.setOnFocusChangeListener(getPresenter());
       swipeRefreshLayout.setOnRefreshListener(this);
 //      editText.setOnKeyListener(getPresenter());

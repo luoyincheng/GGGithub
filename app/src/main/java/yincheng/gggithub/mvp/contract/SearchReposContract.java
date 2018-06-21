@@ -7,7 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import yincheng.gggithub.mvp.contract.base.GGContract;
+import yincheng.gggithub.mvp.model.Code;
+import yincheng.gggithub.mvp.model.GithubUser;
+import yincheng.gggithub.mvp.model.Issue;
 import yincheng.gggithub.mvp.model.Repo;
+import yincheng.gggithub.provider.db.User;
 import yincheng.gggithub.provider.rest.OnLoadMore;
 import yincheng.gggithub.view.android.SwipeRefreshLayout;
 import yincheng.gggithub.view.widget.FontAutoCompleteEditText;
@@ -38,9 +42,16 @@ public interface SearchReposContract {
 
    interface Presenter extends GGContract.GGPresenter, GGContract.paginationListener<String>,
          android.view.View.OnFocusChangeListener {
-      @NonNull ArrayList<Repo> getRepos();
+      @NonNull ArrayList<Repo> getRepoList();
 
-//            void onSearch(@NonNull FontAutoCompleteEditText editText, TagGroup tagGroup, String
+      @NonNull ArrayList<GithubUser> getUserList();
+
+      @NonNull ArrayList<Issue> getIssueList();
+
+      @NonNull ArrayList<Code> getCodeList();
+
+      //            void onSearch(@NonNull FontAutoCompleteEditText editText, TagGroup tagGroup,
+      // String
 //            searchType);
       void onSearch(@NonNull FontAutoCompleteEditText editText, TagGroup tagGroup, SearchType
             searchType);

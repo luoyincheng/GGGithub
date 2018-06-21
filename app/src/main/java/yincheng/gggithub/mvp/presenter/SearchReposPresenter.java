@@ -14,6 +14,9 @@ import yincheng.gggithub.R;
 import yincheng.gggithub.helper.AppHelper;
 import yincheng.gggithub.helper.InputHelper;
 import yincheng.gggithub.mvp.contract.SearchReposContract;
+import yincheng.gggithub.mvp.model.Code;
+import yincheng.gggithub.mvp.model.GithubUser;
+import yincheng.gggithub.mvp.model.Issue;
 import yincheng.gggithub.mvp.model.Repo;
 import yincheng.gggithub.mvparchitecture.ViewAction;
 import yincheng.gggithub.provider.network.Pageable;
@@ -27,7 +30,10 @@ import yincheng.gggithub.view.widget.TagGroup;
  */
 public class SearchReposPresenter extends RxPresenter<SearchReposContract.View> implements
       SearchReposContract.Presenter {
-   private ArrayList<Repo> repos = new ArrayList<>();
+   private ArrayList<Repo> repoArrayList = new ArrayList<>();
+   private ArrayList<GithubUser> userArrayList = new ArrayList<>();
+   private ArrayList<Issue> issueArrayList = new ArrayList<>();
+   private ArrayList<Code> codeArrayList = new ArrayList<>();
    private int page;
    private int previousTotalItems;
    private int lastPage = Integer.MAX_VALUE;
@@ -37,8 +43,20 @@ public class SearchReposPresenter extends RxPresenter<SearchReposContract.View> 
       super.onAttachView(view);
    }
 
-   @NonNull @Override public ArrayList<Repo> getRepos() {
-      return repos;
+   @NonNull @Override public ArrayList<Repo> getRepoList() {
+      return repoArrayList;
+   }
+
+   @NonNull @Override public ArrayList<GithubUser> getUserList() {
+      return userArrayList;
+   }
+
+   @NonNull @Override public ArrayList<Issue> getIssueList() {
+      return issueArrayList;
+   }
+
+   @NonNull @Override public ArrayList<Code> getCodeList() {
+      return codeArrayList;
    }
 
    //      @Override public void onSearch(@NonNull FontAutoCompleteEditText editText, TagGroup
