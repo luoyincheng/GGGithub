@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<yincheng.gggithub.view.widget.ForegroundRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/grid_spacing"
+    android:foreground="?android:selectableItemBackground"
+    android:paddingBottom="@dimen/spacing_normal"
+    android:paddingEnd="@dimen/spacing_xs_large"
+    android:paddingTop="@dimen/spacing_normal"
+    tools:ignore="RtlSymmetry">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <yincheng.gggithub.view.widget.AvatarLayout
+            android:id="@+id/avatarLayout"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="@dimen/avatar_margin_end"
+            android:layout_marginStart="@dimen/avatar_margin"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <yincheng.gggithub.view.widget.FontTextView
+                android:id="@+id/name"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:textColor="?android:textColorPrimary"
+                android:textStyle="bold"
+                tools:text="luoyincheng" />
+
+            <yincheng.gggithub.view.widget.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_micro"
+                app:auto_gravity="start"
+                app:auto_orientation="horizontal">
+
+
+                <yincheng.gggithub.view.widget.FontTextView
+                    android:id="@+id/score"
+                    style="@style/TextAppearance.AppCompat.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/spacing_micro"
+                    android:drawablePadding="@dimen/spacing_micro"
+                    android:drawableStart="@drawable/vector_drawable_cup1"
+                    android:gravity="start|center"
+                    android:textColor="?android:attr/textColorSecondary"
+                    app:drawableColor="?android:attr/textColorSecondary"
+                    tools:text="10000" />
+
+                <yincheng.gggithub.view.widget.FontTextView
+                    android:id="@+id/size"
+                    style="@style/TextAppearance.AppCompat.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/spacing_micro"
+                    android:drawablePadding="@dimen/spacing_micro"
+                    android:drawableStart="@drawable/vector_drawable_depository1"
+                    android:gravity="start|center"
+                    android:textColor="?android:attr/textColorSecondary"
+                    app:drawableColor="?android:attr/textColorSecondary"
+                    tools:text="100 MB"
+                    tools:visibility="visible" />
+
+                <yincheng.gggithub.view.widget.FontTextView
+                    android:id="@+id/followers"
+                    style="@style/TextAppearance.AppCompat.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/spacing_micro"
+                    android:drawablePadding="@dimen/spacing_micro"
+                    android:drawableStart="@drawable/vector_drawable_followers"
+                    android:gravity="start|center"
+                    android:textColor="?android:attr/textColorSecondary"
+                    app:drawableColor="?android:attr/textColorSecondary"
+                    tools:text="50000" />
+
+                <yincheng.gggithub.view.widget.FontTextView
+                    android:id="@+id/following"
+                    style="@style/TextAppearance.AppCompat.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/spacing_micro"
+                    android:drawablePadding="@dimen/spacing_micro"
+                    android:drawableStart="@drawable/vector_drawable_following"
+                    android:gravity="start|center"
+                    android:textColor="?android:attr/textColorSecondary"
+                    app:drawableColor="?android:attr/textColorSecondary"
+                    tools:text="50 minutes ago" />
+
+            </yincheng.gggithub.view.widget.AutoLinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</yincheng.gggithub.view.widget.ForegroundRelativeLayout>

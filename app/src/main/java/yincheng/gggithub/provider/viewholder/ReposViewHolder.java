@@ -46,10 +46,10 @@ public class ReposViewHolder extends BaseViewHolder<Repo> {
    public static ReposViewHolder newInstance(ViewGroup viewGroup, BaseRecyclerAdapter adapter,
                                              boolean isStarred, boolean withImage) {
       if (withImage) {
-         return new ReposViewHolder(getView(viewGroup, R.layout.repos_row_item), adapter,
+         return new ReposViewHolder(getView(viewGroup, R.layout.item_repo_searched), adapter,
                isStarred, true);
       } else {
-         return new ReposViewHolder(getView(viewGroup, R.layout.repos_row_no_image_item),
+         return new ReposViewHolder(getView(viewGroup, R.layout.item_repo_searched_noimage),
                adapter, isStarred, false);
       }
 
