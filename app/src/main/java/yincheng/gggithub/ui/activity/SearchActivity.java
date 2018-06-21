@@ -108,7 +108,7 @@ public class SearchActivity extends
    }
 
    @Override public void onRefresh() {
-      if(InputHelper.isEmpty(editText)) editText.setText("wode");
+      if (InputHelper.isEmpty(editText)) editText.setText("wode");
       onSearch();
       handler.postDelayed(new Runnable() {
          @Override public void run() {
@@ -171,13 +171,19 @@ public class SearchActivity extends
       getPresenter().onSearch(editText, tagGroup, getSearchType());
    }
 
-   public static String filterType;
-
-   private String getSearchType() {
-      for (int i = 0; i < filterRadioButtons.size(); i++)
-         if (filterRadioButtons.get(i).isChecked())
-            filterType = (String) filterRadioButtons.get(i).getText();
-      return filterType;
+   //   public static String filterType;
+//
+//      private String getSearchType() {
+//      for (int i = 0; i < filterRadioButtons.size(); i++)
+//         if (filterRadioButtons.get(i).isChecked())
+//            filterType = (String) filterRadioButtons.get(i).getText();
+//      return filterType;
+//   }
+   private SearchReposContract.SearchType getSearchType() {
+      if (filterRadioButtons.get(1).isChecked()) return SearchReposContract.SearchType.USER;
+      if (filterRadioButtons.get(2).isChecked()) return SearchReposContract.SearchType.ISSUE;
+      if (filterRadioButtons.get(3).isChecked()) return SearchReposContract.SearchType.CODE;
+      else return SearchReposContract.SearchType.CATEGORY;
    }
 
    @OnClick(R.id.iv_clean)

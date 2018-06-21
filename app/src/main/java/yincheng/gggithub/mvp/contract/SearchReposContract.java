@@ -18,6 +18,10 @@ import yincheng.gggithub.view.widget.TagGroup;
  * github:luoyincheng
  */
 public interface SearchReposContract {
+   enum SearchType {
+      CATEGORY, USER, ISSUE, CODE
+   }
+
    interface View extends GGContract.GGView, SwipeRefreshLayout.OnRefreshListener,
          android.view.View.OnClickListener {
 
@@ -36,7 +40,9 @@ public interface SearchReposContract {
          android.view.View.OnFocusChangeListener {
       @NonNull ArrayList<Repo> getRepos();
 
-      void onSearch(@NonNull FontAutoCompleteEditText editText, TagGroup tagGroup, String
+//            void onSearch(@NonNull FontAutoCompleteEditText editText, TagGroup tagGroup, String
+//            searchType);
+      void onSearch(@NonNull FontAutoCompleteEditText editText, TagGroup tagGroup, SearchType
             searchType);
 
    }

@@ -2,6 +2,7 @@ package yincheng.gggithub.provider.rest;
 
 import android.support.annotation.Nullable;
 
+import yincheng.gggithub.mvp.contract.SearchReposContract;
 import yincheng.gggithub.mvp.contract.base.GGContract;
 import yincheng.gggithub.view.widget.InfiniteScroll;
 
@@ -31,10 +32,18 @@ public class OnLoadMore<P> extends InfiniteScroll {
       this.parameter = parameter;
    }
 
-   @Override public boolean onLoadMore(String paramInPath, int page, int totalItemsCount) {
+//      @Override public boolean onLoadMore(String paramInPath, int page, int totalItemsCount) {
+//      if (presenter != null) {
+//         presenter.setPreviousTotal(totalItemsCount);
+//         return presenter.onCallApi(paramInPath, page + 1, parameter);
+//      }
+//      return false;
+//   }
+   @Override public boolean onLoadMore(@Nullable SearchReposContract.SearchType searchType, int
+         page, int totalItemsCount) {
       if (presenter != null) {
          presenter.setPreviousTotal(totalItemsCount);
-         return presenter.onCallApi(paramInPath, page + 1, parameter);
+         return presenter.onCallApi(searchType, page + 1, parameter);
       }
       return false;
    }

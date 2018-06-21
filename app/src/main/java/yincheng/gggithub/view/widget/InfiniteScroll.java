@@ -1,10 +1,12 @@
 package yincheng.gggithub.view.widget;
 
+import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 
 import yincheng.gggithub.library.recyclerview.BaseRecyclerAdapter;
+import yincheng.gggithub.mvp.contract.SearchReposContract;
 
 
 /**
@@ -63,5 +65,7 @@ public abstract class InfiniteScroll extends RecyclerView.OnScrollListener {
       this.loading = true;
    }
 
-   public abstract boolean onLoadMore(String paramInPath, int page, int totalItemsCount);
+//      public abstract boolean onLoadMore(String paramInPath, int page, int totalItemsCount);
+   public abstract boolean onLoadMore(@Nullable SearchReposContract.SearchType searchType, int
+         page, int totalItemsCount);
 }

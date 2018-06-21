@@ -8,6 +8,7 @@ import android.support.annotation.StringRes;
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import yincheng.gggithub.mvp.contract.SearchReposContract;
 import yincheng.gggithub.mvparchitecture.TiView;
 import yincheng.gggithub.mvparchitecture.callonmainthread.CallOnMainThread;
 
@@ -58,7 +59,9 @@ public interface GGContract {
 
       void setPreviousTotal(int previousTotal);
 
-      boolean onCallApi(String paramInPath, int page, @Nullable P parameter);
+//      boolean onCallApi(String paramInPath, int page, @Nullable P parameter);
+      boolean onCallApi(@Nullable SearchReposContract.SearchType searchType, int page, @Nullable
+            P parameter);
    }
 
    interface onScrollTopListener {

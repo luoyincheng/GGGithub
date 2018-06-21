@@ -2,6 +2,7 @@ package yincheng.gggithub.mvp.presenter;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 
 import com.orhanobut.logger.Logger;
@@ -40,8 +41,24 @@ public class SearchReposPresenter extends RxPresenter<SearchReposContract.View> 
       return repos;
    }
 
+   //      @Override public void onSearch(@NonNull FontAutoCompleteEditText editText, TagGroup
+//    tagGroup,
+//                                  String searchType) {
+//      sendToView(view -> view.onToggleFilter(false));
+//      boolean isQualified = !InputHelper.isEmpty(editText) && InputHelper.toString(editText)
+//            .length() > 1 && !InputHelper.isEmpty(searchType);
+//      editText.setError(isQualified ? null : editText.getResources().getString(R.string
+//            .search_key_size_required));
+//      if (isQualified) {
+//         String searchKey = InputHelper.toString(editText);
+//         tagGroup.appendInputTag(searchKey);
+//         editText.dismissDropDown();
+//         AppHelper.hideKeyboard(editText);
+//         onCallApi(searchType, 1, searchKey);
+//      }
+//   }
    @Override public void onSearch(@NonNull FontAutoCompleteEditText editText, TagGroup tagGroup,
-                                  String searchType) {
+                                  SearchReposContract.SearchType searchType) {
       sendToView(view -> view.onToggleFilter(false));
       boolean isQualified = !InputHelper.isEmpty(editText) && InputHelper.toString(editText)
             .length() > 1 && !InputHelper.isEmpty(searchType);
@@ -76,7 +93,48 @@ public class SearchReposPresenter extends RxPresenter<SearchReposContract.View> 
       this.previousTotalItems = previousTotal;
    }
 
-   @Override public boolean onCallApi(String paramInPath, int page, @Nullable String parameter) {
+//   @Override public boolean onCallApi(String paramInPath, int page, @Nullable String parameter) {
+//      if (page == 1) {
+//         lastPage = Integer.MAX_VALUE;
+//         sendToView(new ViewAction<SearchReposContract.View>() {
+//            @Override public void call(SearchReposContract.View view) {
+//               view.getLoadMoreClass().reset();
+//            }
+//         });
+//      }
+//      setCurrentPage(page);
+//      if (page > lastPage || lastPage == 0 || parameter == null) {
+//         sendToView(new ViewAction<SearchReposContract.View>() {
+//            @Override public void call(SearchReposContract.View view) {
+//               view.hideProgressView();
+//            }
+//         });
+//         return false;
+//      }
+//      makeRestCall(ServiceProvider.getSearchService(false).searchRepositories(paramInPath,
+//            parameter, page),
+//            new Consumer<Pageable<Repo>>() {
+//               @Override public void accept(Pageable<Repo> repoPageable) throws Exception {
+//                  lastPage = repoPageable.getLast();
+//                  sendToView(new ViewAction<SearchReposContract.View>() {
+//                     @Override public void call(SearchReposContract.View view) {
+//                        view.onNotifyAdapter(repoPageable.isIncompleteResults() ? null :
+//                              repoPageable.getItems(), page);
+//                        if (!repoPageable.isIncompleteResults())//请求不完整
+//                           view.onSetTabConut(repoPageable.getTotalCount());
+//                        else {
+//                           view.onSetTabConut(0);
+//                           view.showMessage(R.string.error, R.string.search_result_warning);
+//                        }
+//                     }
+//                  });
+//               }
+//            });
+//      return true;
+//   }
+
+   @Override public boolean onCallApi(SearchReposContract.SearchType searchType, int page,
+                                      @Nullable String parameter) {
       if (page == 1) {
          lastPage = Integer.MAX_VALUE;
          sendToView(new ViewAction<SearchReposContract.View>() {
@@ -94,25 +152,27 @@ public class SearchReposPresenter extends RxPresenter<SearchReposContract.View> 
          });
          return false;
       }
-      makeRestCall(ServiceProvider.getSearchService(false).searchRepositories(paramInPath,
-            parameter, page),
-            new Consumer<Pageable<Repo>>() {
-               @Override public void accept(Pageable<Repo> repoPageable) throws Exception {
-                  lastPage = repoPageable.getLast();
-                  sendToView(new ViewAction<SearchReposContract.View>() {
-                     @Override public void call(SearchReposContract.View view) {
-                        view.onNotifyAdapter(repoPageable.isIncompleteResults() ? null :
-                              repoPageable.getItems(), page);
-                        if (!repoPageable.isIncompleteResults())//请求不完整
-                           view.onSetTabConut(repoPageable.getTotalCount());
-                        else {
-                           view.onSetTabConut(0);
-                           view.showMessage(R.string.error, R.string.search_result_warning);
+      switch (searchType) {
+         default:
+            makeRestCall(ServiceProvider.getSearchService(false).searchRepositories(
+                  parameter, page),
+                  repoPageable -> {
+                     lastPage = repoPageable.getLast();
+                     sendToView(new ViewAction<SearchReposContract.View>() {
+                        @Override public void call(SearchReposContract.View view) {
+                           view.onNotifyAdapter(repoPageable.isIncompleteResults() ? null :
+                                 repoPageable.getItems(), page);
+                           if (!repoPageable.isIncompleteResults())//请求不完整
+                              view.onSetTabConut(repoPageable.getTotalCount());
+                           else {
+                              view.onSetTabConut(0);
+                              view.showMessage(R.string.error, R.string.search_result_warning);
+                           }
                         }
-                     }
+                     });
                   });
-               }
-            });
+            break;
+      }
       return true;
    }
 
